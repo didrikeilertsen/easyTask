@@ -8,6 +8,7 @@ class ProjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
+        //TODO: fix shadow/border on cards
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           width: 150,
@@ -15,6 +16,7 @@ class ProjectCard extends StatelessWidget {
           child: Column(
             children: [
               Row(
+                //TODO: title and description shouldn't be able to overflow
                 children: const [
                   Text("Title", textAlign: TextAlign.left),
                 ],

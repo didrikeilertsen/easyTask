@@ -21,7 +21,8 @@ class ProjectOverviewScreen extends StatelessWidget {
           AppBarButton(
               handler: () {},
               tooltip: "Add new project",
-              icon: PhosphorIcons.plus)
+              icon: PhosphorIcons.plus
+          )
         ],
       ),
       body: Padding(
@@ -42,6 +43,7 @@ class ProjectOverviewScreen extends StatelessWidget {
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
                   children: const [
+                    //TODO: for every project - add ProjectCard
                     ProjectCard(),
                     ProjectCard(),
                     ProjectCard(),
@@ -57,6 +59,8 @@ class ProjectOverviewScreen extends StatelessWidget {
                     ProjectCard(),
                     ProjectCard(),
                     ProjectCard(),
+
+                    //TODO: add navbar on the bottom
                   ],
                 ),
               ),

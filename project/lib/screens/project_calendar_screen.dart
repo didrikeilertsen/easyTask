@@ -122,6 +122,8 @@ class _ProjectCalendarScreenState extends State<ProjectCalendarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
+        //TODO: get name of project
         title: const Text("project 1 - calendar"),
         centerTitle: false,
         titleSpacing: -4,

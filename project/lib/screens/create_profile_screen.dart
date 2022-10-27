@@ -9,6 +9,11 @@ import 'package:project/widgets/appbar_button.dart';
 class CreateProfileScreen extends StatelessWidget {
   static const routeName = "/create-profile";
 
+  //TODO: pixel overflow when opening keyboard
+  //TODO: kan fjerne hele modal-vinduet hvis nødvendig og kun bruke upload image
+  //TODO: må lages scrollable eller dytte alt opp når tastaturet åpnes
+
+
   /// Creates an instance of create-profile-screen.
   const CreateProfileScreen({super.key});
 
@@ -82,7 +87,6 @@ class CreateProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(92, 0, 241, 1),
         elevation: 0,
         leading: AppBarButton(
           handler: () => Navigator.of(context).pop(),
@@ -99,7 +103,7 @@ class CreateProfileScreen extends StatelessWidget {
                 clipper: CurveClipper(),
                 child: Container(
                   height: 400,
-                  color: const Color.fromRGBO(92, 0, 241, 1),
+                  color: const Color.fromRGBO(36, 149, 165, 1),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
@@ -140,6 +144,7 @@ class CreateProfileScreen extends StatelessWidget {
                                 children: <InlineSpan>[
                                   TextSpan(text: "hi "),
                                   TextSpan(
+                                    //TODO: add username here
                                     text: "Jane, ",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -153,6 +158,7 @@ class CreateProfileScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 16),
+                          //TODO: add profile picture from user
                           Image.asset(
                             "assets/images/empty_profile_pic_large.png",
                             height: 200,
@@ -184,11 +190,16 @@ class CreateProfileScreen extends StatelessWidget {
                   minLines: 4,
                   maxLines: 10,
                   decoration: InputDecoration(
-                    label: Text("bio"),
+                    //TODO: get bio in correct color
+                    label: Text(
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                        "bio"),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         width: 1,
-                        color: Themes.primaryColor,
+                        color: Colors.grey,
                       ),
                     ),
                     border: UnderlineInputBorder(

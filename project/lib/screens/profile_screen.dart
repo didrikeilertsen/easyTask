@@ -33,6 +33,7 @@ class ProfileScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(40),
             ),
+            //TODO: get info from user
             const Text("Testy"),
             const Padding(
               padding: EdgeInsets.all(20),
