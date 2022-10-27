@@ -125,10 +125,6 @@ Distributed under the MIT License. See `documentation/LICENSE.txt` for more info
 
 <!-- CONTACT -->
 ## Contact
-
-[Janita Røyseth](https://github.com/janital) - janital@stud.ntnu.no - repository owner   
-[Sakarias Sæterstøl](https://github.com/pr0xity) - sakariks@stud.ntnu.no - group leader   
-[Espen Otlo](https://github.com/espenotlo) - espenotl@stud.ntnu.no  
 [Didrik Eilertsen](https://github.com/didrikeilertsen) - didrikei@stud.ntnu.no  
 
 Project Link: [https://github.com/janital/solveIt](https://github.com/janital/solveIt)
