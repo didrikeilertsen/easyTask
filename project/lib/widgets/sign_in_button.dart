@@ -6,12 +6,12 @@ import 'custom_elevated_button.dart';
 class SignInButton extends CustomElevatedButton {
   SignInButton({
     super.key,
-    required PhosphorIconData icon,
+    PhosphorIconData? icon,
     required String text,
     required VoidCallback onPressed,
   }) : super(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Icon(
                 icon,
@@ -24,10 +24,17 @@ class SignInButton extends CustomElevatedButton {
                   text,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 18.0,
+                    fontSize: 15.0,
                     fontFamily: "Comfortaa",
                     fontWeight: FontWeight.w600,
                   ),
+                ),
+              ),
+              Opacity(
+                opacity: 0,
+                child: Icon(
+                  icon,
+                  size: 32,
                 ),
               ),
             ],
@@ -35,6 +42,6 @@ class SignInButton extends CustomElevatedButton {
           color: Colors.white,
           onPressed: onPressed,
           height: 45.0,
-          padding: 10.0,
+          padding: 20.0,
         );
 }

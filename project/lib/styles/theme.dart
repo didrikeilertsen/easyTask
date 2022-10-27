@@ -7,18 +7,30 @@ class Themes {
 
   // TODO: fix this shit
   static const MaterialColor primaryColor = MaterialColor(
-    0xff5C00F1,
+    //0xff4295a5,
+    0xffb04838,
     <int, Color>{
-      50: Color(0xff5C00F1), //10%
-      100: Color.fromRGBO(92, 0, 241, 1),
-      200: Color.fromRGBO(92, 0, 241, 1),
-      300: Color.fromRGBO(92, 0, 241, 1),
-      400: Color.fromRGBO(92, 0, 241, 1),
-      500: Color.fromRGBO(92, 0, 241, 1),
-      600: Color.fromRGBO(92, 0, 241, 1),
-      700: Color.fromRGBO(92, 0, 241, 1),
-      800: Color.fromRGBO(92, 0, 241, 1),
-      900: Color(0xff5C00F1),
+      // 50: Color(0xff5C00F1), //10%
+      // 100: Color.fromRGBO(92, 0, 241, 1),
+      // 200: Color.fromRGBO(92, 0, 241, 1),
+      // 300: Color.fromRGBO(92, 0, 241, 1),
+      // 400: Color.fromRGBO(92, 0, 241, 1),
+      // 500: Color.fromRGBO(92, 0, 241, 1),
+      // 600: Color.fromRGBO(92, 0, 241, 1),
+      // 700: Color.fromRGBO(92, 0, 241, 1),
+      // 800: Color.fromRGBO(92, 0, 241, 1),
+      // 900: Color(0xff5C00F1),
+
+      50: Color.fromRGBO(36, 149, 165, 1), //10%
+      100: Color.fromRGBO(36, 149, 165, 1),
+      200: Color.fromRGBO(36, 149, 165, 1),
+      300: Color.fromRGBO(36, 149, 165, 1),
+      400: Color.fromRGBO(36, 149, 165, 1),
+      500: Color.fromRGBO(36, 149, 165, 1),
+      600: Color.fromRGBO(36, 149, 165, 1),
+      700: Color.fromRGBO(36, 149, 165, 1),
+      800: Color.fromRGBO(36, 149, 165, 1),
+      900: Color.fromRGBO(36, 149, 165, 1),
     },
   );
 
@@ -31,7 +43,8 @@ class Themes {
     fontFamily: "Comfortaa",
     indicatorColor: Colors.black,
     appBarTheme: const AppBarTheme(
-      color: Colors.white,
+      //color: Colors.white,
+      color: Color.fromRGBO(36, 149, 165, 1),
       foregroundColor: Colors.black,
       shadowColor: Colors.black54,
       elevation: 3,
@@ -45,19 +58,19 @@ class Themes {
     titleCentered: true,
   );
 
-  static CalendarStyle calendarTheme = CalendarStyle(
+  static CalendarStyle calendarTheme = const CalendarStyle(
     markerDecoration: BoxDecoration(
-      color: Colors.blue.shade900,
+      color: Color.fromRGBO(36, 149, 165, 1),
       shape: BoxShape.circle,
     ),
     selectedDecoration: BoxDecoration(
-      color: Colors.blue.shade400,
+      color: Color.fromRGBO(36, 149, 165, 1),
       shape: BoxShape.circle,
     ),
-    todayDecoration: const BoxDecoration(
+    todayDecoration: BoxDecoration(
       shape: BoxShape.circle,
     ),
-    todayTextStyle: const TextStyle(
+    todayTextStyle: TextStyle(
       fontWeight: FontWeight.w900,
     ),
   );
@@ -105,14 +118,12 @@ class Themes {
   static ButtonStyle secondaryButtonStyle = ButtonStyle(
     elevation: MaterialStateProperty.all<double>(0),
     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    foregroundColor: MaterialStateProperty.all<Color>(
-      const Color.fromRGBO(92, 0, 241, 1),
-    ),
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.black87),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),
         side: const BorderSide(
-          color: Color.fromRGBO(190, 153, 250, 1),
+          color: Colors.white,
           width: 1.5,
         ),
       ),

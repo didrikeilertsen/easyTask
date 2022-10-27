@@ -19,10 +19,10 @@ class SignUpButton extends CustomElevatedButton{
         ),
       ],
     ),
-    color: const Color.fromRGBO(36, 149, 165, 1.0),
+    color: const Color.fromRGBO(36, 149, 165, 1),
     onPressed: onPressed,
     height: 40.0,
-    padding: 55,
+    padding: 63,
 
   );
 }

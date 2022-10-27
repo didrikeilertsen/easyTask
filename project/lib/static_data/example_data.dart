@@ -13,11 +13,11 @@ class ExampleData {
         deadline: "23.10.2022",
         comments: [
           Comment(
-            author: "Espen",
+            author: "`Jens`",
             date: "18.10.2022",
             text: "Only had time to vacuum the living room and hallway."),
           Comment(
-            author: "Sakarias",
+            author: "Erik",
             date: "19.10.2022",
             text: "That's okay, your mother and I still love you. \nYou can do the rest tomorrow."),
         ],
