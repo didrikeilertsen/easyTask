@@ -16,7 +16,7 @@
     ·
     <a href="https://github.com/didrikeilertsen/solveIt/issues">Report Bug</a>
     ·
-    <a href="https://github.com/didrikeilertsen/solveIt/issues"">Request Feature</a>
+    <a href="https://github.com/didrikeilertsen/solveIt/issues">Request Feature</a>
   </p>
 </div>
 
