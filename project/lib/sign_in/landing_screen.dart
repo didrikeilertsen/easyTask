@@ -20,7 +20,6 @@ class _LandingScreenState extends State<LandingScreen> {
     setState(() {
       _user = user;
     });
-
   }
 
   @override

@@ -18,10 +18,9 @@ class SignInScreen extends StatelessWidget {
 
   final void Function(User?) onSignIn;
 
-
   Future<void> _signInAnonymously() async {
     try {
-      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+       final userCredentials = await FirebaseAuth.instance.signInAnonymously();
       if (kDebugMode) {
         print("user: ${userCredentials.user?.uid}");
       }
@@ -55,7 +54,6 @@ class SignInScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildContent(BuildContext context) {
     Project project = ExampleData.projects[0];
@@ -144,9 +142,8 @@ class SignInScreen extends StatelessWidget {
     return SignInButton(
       icon: PhosphorIcons.facebookLogo,
       text: "Continue with Facebook",
-      onPressed: () =>
-          Navigator.of(context)
-              .pushReplacementNamed(CreateProfileScreen.routeName),
+      onPressed: () => Navigator.of(context)
+          .pushReplacementNamed(CreateProfileScreen.routeName),
     );
   }
 
