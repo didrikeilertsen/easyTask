@@ -1,41 +1,42 @@
 {
   "project_info": {
-    "project_number": "339135253031",
-    "project_id": "solveit-1337",
-    "storage_bucket": "solveit-1337.appspot.com"
+    "project_number": "400468159933",
+    "project_id": "solveit-db",
+    "storage_bucket": "solveit-db.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:339135253031:android:e521ddb12c6a01b9019c02",
+        "mobilesdk_app_id": "1:400468159933:android:1b9913819a9ed1817b76d4",
         "android_client_info": {
-          "package_name": "com.example.project"
+          "package_name": "no.ntnu.MobileDev.solveIt"
         }
       },
       "oauth_client": [
         {
-          "client_id": "339135253031-rd3no0rf79mljf83326ott5m1uj9l16o.apps.googleusercontent.com",
+          "client_id": "400468159933-c4hdla58ivtm3asu7755674co5v154p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.ntnu.MobileDev.solveIt",
+            "certificate_hash": "836f39523d6d19a4ca77abe2615e4fdbb8edd91b"
+          }
+        },
+        {
+          "client_id": "400468159933-10cffrmv1q4vhtv0op4qi66d949g2n3t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC_U8VSLeguHccwSdaM31iR4yoyZRR3neM"
+          "current_key": "AIzaSyDUOm4r0rzc1doon8o4aR4hD4auqlYOS9o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "339135253031-rd3no0rf79mljf83326ott5m1uj9l16o.apps.googleusercontent.com",
+              "client_id": "400468159933-10cffrmv1q4vhtv0op4qi66d949g2n3t.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "339135253031-qgfooj4sdnl3me1rn5edlg52uagdf12p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.project"
-              }
             }
           ]
         }
