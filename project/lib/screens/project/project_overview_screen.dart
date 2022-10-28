@@ -4,17 +4,16 @@ import 'package:project/static_data/example_data.dart';
 import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/project_card.dart';
 import 'package:project/widgets/search_bar.dart';
-
-import '../models/project.dart';
+import '../../models/project.dart';
 
 /// Screen/Scaffold for the overview of projects the user have access to.
 class ProjectOverviewScreen extends StatelessWidget {
+  //TODO: remove this?
   static const routeName = "/project-overview";
 
   const ProjectOverviewScreen({super.key});
 
-
-
+  //TODO: remove back-button
   @override
   Widget build(BuildContext context) {
     //final List<Project> projects = ModalRoute.of(context)!.settings.arguments as List<Project>;
@@ -23,13 +22,14 @@ class ProjectOverviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("solveit", textAlign: TextAlign.center),
+        automaticallyImplyLeading: false,
+        title: const Text("projects", textAlign: TextAlign.center),
         actions: [
           // TODO: Add action to button.
           AppBarButton(
-              handler: () {},
-              tooltip: "Add new project",
-              icon: PhosphorIcons.plus,
+            handler: () {},
+            tooltip: "Add new project",
+            icon: PhosphorIcons.plus,
           )
         ],
       ),
@@ -50,35 +50,14 @@ class ProjectOverviewScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
-                  children:  _buildProjectList(projects),
+                  children: _buildProjectList(projects),
                 ),
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(PhosphorIcons.squaresFour),
-            label: 'projects',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(PhosphorIcons.userCircle),
-            label: 'profile',
-
-          ),
-        ],
-        selectedItemColor: Colors.amber[1000],
-        onTap: _onItemTapped,
-      ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    // setState(() {
-    //   _selectedIndex = index;
-    // });
   }
 
   List<Widget> _buildProjectList(List<Project> projects) {

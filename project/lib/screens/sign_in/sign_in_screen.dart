@@ -4,13 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/screens/project_overview_screen.dart';
+import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/widgets/sign_in_button.dart';
 import 'package:project/widgets/sign_up_button.dart';
 
-import '../models/project.dart';
-import '../static_data/example_data.dart';
-import 'create_profile_screen.dart';
+import '../../models/project.dart';
+import '../../static_data/example_data.dart';
+import '../profile/create_profile_screen.dart';
 
 ///Represents the sign-in screen for the application
 class SignInScreen extends StatelessWidget {
@@ -20,10 +20,25 @@ class SignInScreen extends StatelessWidget {
 
   Future<void> _signInAnonymously() async {
     try {
-       final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
       if (kDebugMode) {
         print("user: ${userCredentials.user?.uid}");
       }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _signInWithEmailAndPassword() async {
+    try {
+      //final userCredentials =
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: "test@test.com", password: "test"
+              // email: emailController.text.trim(),
+              // password: passwordController.text.trim()
+              );
+      //onSignIn(userCredentials.user);
+      //print(" user info = ${userCredentials.user?.uid}");
     } catch (e) {
       print(e.toString());
     }

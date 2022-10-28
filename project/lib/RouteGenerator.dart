@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/project_calendar_screen.dart';
-import 'package:project/screens/task_detail_screen.dart';
-import 'package:project/screens/task_overview_screen.dart';
-import 'package:project/sign_in/landing_screen.dart';
+import 'package:project/screens/sign_in/landing_screen.dart';
+import 'package:project/screens/task/task_detail_screen.dart';
+import 'package:project/screens/task/task_overview_screen.dart';
+import 'package:project/services/auth.dart';
 
 
 ///This class separates the routing logic for the entire application
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+
+
+
+    //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
+
+
+
+
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
 
     switch (settings.name) {
       case '/landingScreen':
+        //return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth(),));
         return MaterialPageRoute(builder: (_) => const LandingScreen());
 
       case '/tasks':
@@ -47,9 +57,10 @@ class RouteGenerator {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Error'),
+          title: const Text('Error'),
         ),
-        body: Center(
+        body: const Center(
+          //TODO: add home button
           child: Text('ERROR'),
         ),
       );
