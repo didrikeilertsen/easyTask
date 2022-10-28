@@ -18,41 +18,6 @@ class SignInScreen extends StatelessWidget {
 
   final AuthBase auth;
 
-  Future<void> _signInWithEmailAndPassword() async {
-    try {
-      //final userCredentials =
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: "test@test.com", password: "test"
-              // email: emailController.text.trim(),
-              // password: passwordController.text.trim()
-              );
-      //print(" user info = ${userCredentials.user?.uid}");
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> _signInAnonymously(BuildContext context) async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator(),
-        ));
-
-    try {
-      final user = await auth.signInAnonymously();
-      print(" user info = ${user?.uid}");
-
-      //await Future.delayed(const Duration(seconds: 3));
-
-    } catch (e) {
-      print(e.toString());
-    } finally {
-      navigatorKey.currentState!.pop();
-    }
-    //navigatorKey.currentState!.popUntil((route) => route.isActive);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,13 +125,13 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
+  //TODO buildcontext and project parameters?
   Widget _buildGoogleSignInButtons(BuildContext context, Project project) {
     return SignInButton(
-        icon: PhosphorIcons.googleLogo,
-        text: "Continue with Google",
-        onPressed: () {
-          Navigator.pushNamed(context, '/tasks', arguments: project);
-        });
+      icon: PhosphorIcons.googleLogo,
+      text: "Continue with Google",
+      onPressed: () => _signInWithGoogle(context),
+    );
   }
 
   Widget _buildAppleSignInButtons(BuildContext context, Project project) {
@@ -198,5 +163,63 @@ class SignInScreen extends StatelessWidget {
         ),
       )
     ]);
+  }
+
+  Future<void> _signInWithEmailAndPassword() async {
+    try {
+      //final userCredentials =
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: "test@test.com", password: "test"
+              // email: emailController.text.trim(),
+              // password: passwordController.text.trim()
+              );
+      //print(" user info = ${userCredentials.user?.uid}");
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _signInAnonymously(BuildContext context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+
+    try {
+      final user = await auth.signInAnonymously();
+      print(" user info = ${user?.uid}");
+
+      //await Future.delayed(const Duration(seconds: 3));
+
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      navigatorKey.currentState!.pop();
+    }
+    //navigatorKey.currentState!.popUntil((route) => route.isActive);
+  }
+
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    // showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (context) => const Center(child: CircularProgressIndicator(),
+    //     ));
+
+    try {
+      final user = await auth.signInWithGoogle();
+      print(" user info = ${user?.uid}");
+
+      //await Future.delayed(const Duration(seconds: 3));
+
+    } catch (e) {
+      print(e.toString());
+    }
+
+    // finally {
+    //   navigatorKey.currentState!.pop();
+    // }
   }
 }

@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:project/services/auth.dart';
 import 'package:project/widgets/appbar_button.dart';
 
 /// Screen/Scaffold for the profile of the user.
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key}); //required this.onSignOut
+  const ProfileScreen({super.key, required this.auth});
 
-  // final VoidCallback onSignOut;
+  final AuthBase auth;
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +51,14 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  //TODO: finish logout implementation
-
   Future<void> _signOut() async {
     try {
-     await FirebaseAuth.instance.signOut();
+     await auth.signOut();
 
     } catch (e) {
       print(e.toString());
+    } finally {
+      print("is user logged in? null if not: ${auth.currentUser?.uid}");
     }
   }
 }

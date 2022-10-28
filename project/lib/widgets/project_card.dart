@@ -18,6 +18,7 @@ class ProjectCard extends StatelessWidget {
       child: Padding(
         //TODO: fix shadow/border on cards
         // TODO: title and description shouldn't be able to overflow
+        //TODO: add project screen has description. Show description in project card. if no description => show tasks
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           width: 150,

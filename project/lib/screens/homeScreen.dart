@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/screens/profile/profile_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
+import '../services/auth.dart';
 import '../styles/themes.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final screens = [
     const ProjectOverviewScreen(),
-    const ProfileScreen(),
+    ProfileScreen(auth: Auth()),
   ];
 
   @override

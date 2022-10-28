@@ -13,6 +13,8 @@ class ProjectOverviewScreen extends StatelessWidget {
 
   const ProjectOverviewScreen({super.key});
 
+  //todo consider making a list of project instead of project cards. description might be unnecessary
+
   @override
   Widget build(BuildContext context) {
     //final List<Project> projects = ModalRoute.of(context)!.settings.arguments as List<Project>;

@@ -26,7 +26,7 @@ class CreateProjectScreen extends StatelessWidget {
           AppBarButton(
             handler: () {},
             tooltip: "Create new project",
-            icon: PhosphorIcons.floppyDiskLight,
+            icon: PhosphorIcons.check,
           )
         ],
       ),
