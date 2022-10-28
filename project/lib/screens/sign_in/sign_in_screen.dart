@@ -1,33 +1,22 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/screens/project/project_overview_screen.dart';
+import 'package:project/services/auth.dart';
 import 'package:project/widgets/sign_in_button.dart';
 import 'package:project/widgets/sign_up_button.dart';
 
+import '../../main.dart';
 import '../../models/project.dart';
 import '../../static_data/example_data.dart';
 import '../profile/create_profile_screen.dart';
 
 ///Represents the sign-in screen for the application
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key, required this.onSignIn});
+  const SignInScreen({super.key, required this.auth});
 
-  final void Function(User?) onSignIn;
-
-  Future<void> _signInAnonymously() async {
-    try {
-      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
-      if (kDebugMode) {
-        print("user: ${userCredentials.user?.uid}");
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  final AuthBase auth;
 
   Future<void> _signInWithEmailAndPassword() async {
     try {
@@ -37,22 +26,31 @@ class SignInScreen extends StatelessWidget {
               // email: emailController.text.trim(),
               // password: passwordController.text.trim()
               );
-      //onSignIn(userCredentials.user);
       //print(" user info = ${userCredentials.user?.uid}");
     } catch (e) {
       print(e.toString());
     }
   }
 
-  Future<void> _signInWithApple() async {
+  Future<void> _signInAnonymously(BuildContext context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator(),
+        ));
+
     try {
-      //FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password)
-      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
-      onSignIn(userCredentials.user);
-      print(" user info = ${userCredentials.user?.uid}");
+      final user = await auth.signInAnonymously();
+      print(" user info = ${user?.uid}");
+
+      //await Future.delayed(const Duration(seconds: 3));
+
     } catch (e) {
       print(e.toString());
+    } finally {
+      navigatorKey.currentState!.pop();
     }
+    //navigatorKey.currentState!.popUntil((route) => route.isActive);
   }
 
   @override
@@ -175,7 +173,7 @@ class SignInScreen extends StatelessWidget {
     return SignInButton(
       icon: PhosphorIcons.appleLogo,
       text: "Continue with Apple",
-      onPressed: _signInWithApple,
+      onPressed: () => _signInAnonymously(context),
     );
   }
 

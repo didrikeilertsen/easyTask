@@ -15,12 +15,16 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   static List<Project> projects = ExampleData.projects;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: "solveIt",
       theme: Themes.themeData,
        initialRoute: '/landingScreen',
