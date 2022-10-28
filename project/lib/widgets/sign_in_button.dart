@@ -24,7 +24,7 @@ class SignInButton extends CustomElevatedButton {
                   text,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 15.0,
+                    fontSize: 13.6,
                     fontFamily: "Comfortaa",
                     fontWeight: FontWeight.w600,
                   ),

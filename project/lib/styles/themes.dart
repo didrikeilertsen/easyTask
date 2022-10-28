@@ -5,8 +5,8 @@ import 'package:table_calendar/table_calendar.dart';
 class Themes {
   static Color textColor = Colors.black;
   static const MaterialColor primaryColor = MaterialColor(
-    //0xff4295a5,
-    0xffb04838,
+    0xff4295a5,
+    //0xffb04838,
     <int, Color>{
       50: Color.fromRGBO(36, 149, 165, 1), //10%
       100: Color.fromRGBO(36, 149, 165, 1),

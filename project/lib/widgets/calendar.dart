@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/styles/theme.dart';
+import 'package:project/styles/themes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 /// Calendar spanning from 2021 to 2 years in the future.

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../models/task.dart';
-import '../widgets/appbar_button.dart';
-import '../widgets/comment_list.dart';
-import '../widgets/tags_list.dart';
+import '../../models/task.dart';
+import '../../widgets/appbar_button.dart';
+import '../../widgets/comment_list.dart';
+import '../../widgets/tags_list.dart';
 
 /// Screen/Scaffold for the details of a task in a project
 class TaskDetailScreen extends StatefulWidget {

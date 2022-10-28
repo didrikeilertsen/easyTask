@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/screens/project_overview_screen.dart';
+import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/styles/curve_clipper.dart';
-import 'package:project/styles/theme.dart';
+import 'package:project/styles/themes.dart';
 import 'package:project/widgets/appbar_button.dart';
 
 /// Scaffold/Screen for creating profile after signing up.
 class CreateProfileScreen extends StatelessWidget {
+
+
+
+
+
+
   static const routeName = "/create-profile";
 
   //TODO: pixel overflow when opening keyboard

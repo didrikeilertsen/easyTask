@@ -9,8 +9,8 @@ import 'package:project/widgets/task_list_item.dart';
 import 'package:project/models/project.dart';
 import 'package:project/models/task.dart';
 
-import '../static_data/sorting_methods.dart';
-import '../models/tag.dart';
+import '../../static_data/sorting_methods.dart';
+import '../../models/tag.dart';
 
 /// Screen/Scaffold for the overview of tasks in a project
 class TaskOverviewScreen extends StatelessWidget {
