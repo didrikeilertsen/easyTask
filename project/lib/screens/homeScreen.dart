@@ -4,14 +4,15 @@ import 'package:project/screens/profile/profile_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
 import '../styles/themes.dart';
 
-class CustomBottomNavigator extends StatefulWidget {
-  const CustomBottomNavigator({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
 
   @override
-  State<CustomBottomNavigator> createState() => _CustomBottomNavigatorState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _CustomBottomNavigatorState extends State<CustomBottomNavigator> {
+class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final screens = [
     const ProjectOverviewScreen(),

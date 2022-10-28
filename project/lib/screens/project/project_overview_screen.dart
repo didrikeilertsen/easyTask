@@ -13,7 +13,6 @@ class ProjectOverviewScreen extends StatelessWidget {
 
   const ProjectOverviewScreen({super.key});
 
-  //TODO: remove back-button
   @override
   Widget build(BuildContext context) {
     //final List<Project> projects = ModalRoute.of(context)!.settings.arguments as List<Project>;
@@ -47,6 +46,7 @@ class ProjectOverviewScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 10),
             ),
             Expanded(
+              //TODO når man scroller helt opp eller ned så starter en update
               child: SingleChildScrollView(
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,

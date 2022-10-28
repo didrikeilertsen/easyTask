@@ -69,6 +69,464 @@ class ExampleData {
                 ),
               ]),
         ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),
+    Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
+    ),Project(
+        title: "Garden",
+        tags: tags,
+        tasks: [
+          Task(
+              title: "Mow the lawn",
+              description: "Mow the lawn on both sides of the house. Don't forget to rinse the lawn mower afterwards.",
+              deadline: "26.10.2022",
+              comments: [
+                Comment(
+                    author: "Jens",
+                    date: "125.10.2022",
+                    text: "Accidentally ran over the cat with the mower. \nCreated new issue: Take cat to the vet."
+                ),
+              ],
+              tags: [
+                const Tag(
+                  text: "green",
+                  color: 0xFF8BC34A,
+                ),
+              ]),
+        ]
     )
   ];
   static List<Tag> tags = [

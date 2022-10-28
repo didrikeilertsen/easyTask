@@ -219,6 +219,7 @@ class CreateProfileScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        //TODO use RouteGenerator
         onPressed: () => Navigator.of(context)
             .pushReplacementNamed(ProjectOverviewScreen.routeName),
         child: const Icon(

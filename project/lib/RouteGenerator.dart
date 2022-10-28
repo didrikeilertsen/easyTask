@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/screens/project_calendar_screen.dart';
 import 'package:project/screens/sign_in/landing_screen.dart';
 import 'package:project/screens/task/task_detail_screen.dart';
@@ -10,7 +11,7 @@ import 'package:project/services/auth.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
 
-
+  final Auth auth;
 
     //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
 
@@ -23,10 +24,13 @@ class RouteGenerator {
     switch (settings.name) {
       case '/landingScreen':
         //return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth(),));
-        return MaterialPageRoute(builder: (_) => const LandingScreen());
+        return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
 
       case '/tasks':
         return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
+
+      case '/projects':
+        return MaterialPageRoute(builder: (_) => const ProjectOverviewScreen());
 
       case '/task':
         return MaterialPageRoute(builder: (_) => const TaskDetailScreen());

@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project/screens/customBottomNavigator.dart';
+import 'package:project/screens/homeScreen.dart';
 import 'package:project/screens/sign_in/sign_in_screen.dart';
 
+import '../../services/auth.dart';
+
 class LandingScreen extends StatefulWidget {
-  const LandingScreen({Key? key}) : super(key: key);
+  const LandingScreen({Key? key, required this.auth}) : super(key: key);
+
+  final AuthBase auth;
 
   @override
   State<LandingScreen> createState() => _LandingScreenState();
@@ -16,7 +20,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
-    _updateUser(FirebaseAuth.instance.currentUser);
+    _updateUser(widget.auth.currentUser);
   }
 
   void _updateUser(User? user) {
@@ -38,15 +42,21 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return CustomBottomNavigator();
-        } else {
-          return SignInScreen(onSignIn: _updateUser);
-        }
-      },
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          //TODO test this
+          if (snapshot.connectionState == ConnectionState.waiting){
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          } else {
+            return SignInScreen(auth: widget.auth);
+          }
+        },
+      ),
     );
   }
 }
