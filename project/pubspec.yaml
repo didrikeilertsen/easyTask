@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  string_validator: ^0.3.0
   cupertino_icons: ^1.0.2
   phosphor_flutter: ^1.4.0
   table_calendar: ^3.0.7
@@ -19,6 +20,8 @@ dependencies:
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
   google_sign_in: ^5.4.2
+  flutter_login_facebook: ^1.6.2
+  cloud_firestore: ^4.0.3
 
 dev_dependencies:
   flutter_test:

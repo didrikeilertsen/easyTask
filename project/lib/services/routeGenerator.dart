@@ -9,17 +9,12 @@ import 'package:project/screens/task/task_detail_screen.dart';
 import 'package:project/screens/task/task_overview_screen.dart';
 import 'package:project/services/auth.dart';
 
-
 ///This class separates the routing logic for the entire application
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-
-  final Auth auth;
+    final Auth auth;
 
     //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
-
-
-
 
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
@@ -29,7 +24,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
 
       case '/registrationScreen':
-        return MaterialPageRoute(builder: (_) => RegistrationScreen(auth: Auth()));
+        return MaterialPageRoute(
+            builder: (_) => RegistrationScreen(auth: Auth()));
 
       case '/loginScreen':
         return MaterialPageRoute(builder: (_) => LogInScreen(auth: Auth()));

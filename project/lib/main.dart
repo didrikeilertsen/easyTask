@@ -1,14 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project/services/routeGenerator.dart';
-import 'package:project/screens/project/create_project_screen.dart';
 import 'package:project/static_data/example_data.dart';
 import 'package:project/styles/themes.dart';
 import './models/project.dart';
-import 'package:project/screens/profile/create_profile_screen.dart';
-import 'package:project/screens/profile/profile_screen.dart';
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
