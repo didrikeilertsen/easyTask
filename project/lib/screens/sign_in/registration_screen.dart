@@ -43,7 +43,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   _buildUsernameInput(),
                   _buildEmailInput(),
                   _buildPasswordInput(),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 25),
                   _submittedWithValidData
                       ? _buildLoadingCircle()
                       : _buildSubmitButton()
@@ -129,7 +129,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return ElevatedButton(
       key: const Key("submit_button"),
       onPressed: buttonEnabled ? _submitForm : null,
-      child: const Text("Submit form"),
+      child: const Text("Submit"),
     );
   }
 

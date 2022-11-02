@@ -13,7 +13,6 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  //final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -21,8 +20,6 @@ class _LogInScreenState extends State<LogInScreen> {
   //TODO: trenger ikke all funksjonalitet her
   bool _submittedWithValidData = false;
   bool _submitButtonPressed = false;
-
- // String get _username => _usernameController.text;
 
   String get _email => _emailController.text;
 
@@ -33,7 +30,6 @@ class _LogInScreenState extends State<LogInScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text("Log in"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,7 +40,6 @@ class _LogInScreenState extends State<LogInScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  //_buildUsernameInput(),
                   _buildEmailInput(),
                   _buildPasswordInput(),
                   const SizedBox(height: 15),
@@ -65,7 +60,6 @@ class _LogInScreenState extends State<LogInScreen> {
       _submitButtonPressed = true;
       _submittedWithValidData = _isFormValid();
     });
-    //TODO: username?
     if (_isFormValid()) {
       try {
         await widget.auth.signInWithEmailAndPassword(_email, _password);
@@ -78,19 +72,6 @@ class _LogInScreenState extends State<LogInScreen> {
       }
     }
   }
-
-  // TextField _buildUsernameInput() {
-  //   return TextField(
-  //       key: const Key("username_input"),
-  //       controller: _usernameController,
-  //       enabled: !_submittedWithValidData,
-  //       decoration: InputDecoration(
-  //           labelText: "Username",
-  //           errorText: !_isUsernameValid() && _submitButtonPressed
-  //               ? "invalid username"
-  //               : null),
-  //       onChanged: (username) => _forceRebuild());
-  // }
 
   TextField _buildEmailInput() {
     return TextField(
@@ -133,23 +114,13 @@ class _LogInScreenState extends State<LogInScreen> {
     return ElevatedButton(
       key: const Key("submit_button"),
       onPressed: buttonEnabled ? _submitForm : null,
-      child: const Text("Submit form"),
+      child: const Text("Log in"),
     );
   }
 
   bool _isFormValid() {
-    //return _isUsernameValid() && _isEmailValid() && _isPasswordValid();
     return _isEmailValid() && _isPasswordValid();
   }
-
-  // bool _isUsernameValid() {
-  //   if (_username.length >= 3 &&
-  //       _username.length <= 12 &&
-  //       _username.contains(RegExp(r'^[a-zA-Z]+$'))) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   bool _isEmailValid() {
     return isEmail(_email);
