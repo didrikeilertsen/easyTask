@@ -34,9 +34,6 @@ class SignInScreen extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    Project project = ExampleData.projects[0];
-    //TODO: fra espen sin commit List<Project> projects = ExampleData.projects;
-
     return Stack(
       children: [
         Padding(
@@ -66,11 +63,11 @@ class SignInScreen extends StatelessWidget {
                     // _buildSignInWithExistingAccountButton(),
                     // _buildSignUpButton(),
                     const SizedBox(height: 80.0),
-                    _buildGoogleSignInButtons(context, project),
+                    _buildGoogleSignInButtons(context),
                     const SizedBox(height: 15.0),
-                    _buildFacebookSignInButtons(context, project),
+                    _buildFacebookSignInButtons(context),
                     const SizedBox(height: 15.0),
-                    _buildAppleSignInButtons(context, project),
+                    _buildAppleSignInButtons(context),
                     const SizedBox(height: 25.0),
 
                     const Text(
@@ -81,7 +78,9 @@ class SignInScreen extends StatelessWidget {
                     const SizedBox(height: 15.0),
                     SignUpButton(
                       text: "Sign up with email",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/registrationScreen');
+                      },
                     ),
                     const SizedBox(height: 25.0),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -92,7 +91,6 @@ class SignInScreen extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             alignment: Alignment.centerLeft,
-                            //TODO: Check why foregroundColor makes error.
                             foregroundColor: Colors.black,
                             textStyle: const TextStyle(
                               //color: Colors.black,
@@ -100,11 +98,10 @@ class SignInScreen extends StatelessWidget {
                               fontFamily: "Comfortaa",
                             )),
                         onPressed: () {
-                          //TODO: espen sin commit Navigator.pushNamed(context, ProjectOverviewScreen.routeName, arguments: projects);
+                          Navigator.of(context).pushNamed('/loginScreen');
                         },
                         child: const Text("log in"),
                       ),
-                      //Text("log in", style: TextStyle(fontWeight: FontWeight.bold))
                     ]),
                   ],
                 ),
@@ -116,17 +113,16 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFacebookSignInButtons(BuildContext context, Project project) {
+  Widget _buildFacebookSignInButtons(BuildContext context) {
     return SignInButton(
       icon: PhosphorIcons.facebookLogo,
       text: "Continue with Facebook",
-      onPressed: () => Navigator.of(context)
-          .pushReplacementNamed(CreateProfileScreen.routeName),
+      onPressed: () => _signInWithFacebook(context) ,
     );
   }
 
   //TODO buildcontext and project parameters?
-  Widget _buildGoogleSignInButtons(BuildContext context, Project project) {
+  Widget _buildGoogleSignInButtons(BuildContext context) {
     return SignInButton(
       icon: PhosphorIcons.googleLogo,
       text: "Continue with Google",
@@ -134,7 +130,7 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAppleSignInButtons(BuildContext context, Project project) {
+  Widget _buildAppleSignInButtons(BuildContext context) {
     return SignInButton(
       icon: PhosphorIcons.appleLogo,
       text: "Continue with Apple",
@@ -221,5 +217,14 @@ class SignInScreen extends StatelessWidget {
     // finally {
     //   navigatorKey.currentState!.pop();
     // }
+  }
+
+  Future<void> _signInWithFacebook(BuildContext context) async {
+    try {
+      final user = await auth.signInWithFacebook();
+      print(" user info = ${user?.uid}");
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

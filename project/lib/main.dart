@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:project/RouteGenerator.dart';
+import 'package:project/services/RouteGenerator.dart';
+import 'package:project/screens/project/create_project_screen.dart';
 import 'package:project/static_data/example_data.dart';
 import 'package:project/styles/themes.dart';
 import './models/project.dart';
@@ -27,12 +28,13 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       title: "solveIt",
       theme: Themes.themeData,
-       initialRoute: '/landingScreen',
+
+      initialRoute: '/landingScreen',
       onGenerateRoute: RouteGenerator.generateRoute,
 
 
       //for testing individual page
-                //  home: const ProfileScreen(),
+                 // home: const CreateProjectScreen(),
 
     );
   }
