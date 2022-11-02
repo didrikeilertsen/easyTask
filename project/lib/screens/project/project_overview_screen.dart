@@ -28,7 +28,9 @@ class ProjectOverviewScreen extends StatelessWidget {
         actions: [
           // TODO: Add action to button.
           AppBarButton(
-            handler: () {},
+            handler: () {
+              Navigator.of(context).pushNamed('/createProject');
+            },
             tooltip: "Add new project",
             icon: PhosphorIcons.plus,
           )

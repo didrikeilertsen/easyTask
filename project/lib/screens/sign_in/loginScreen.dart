@@ -16,8 +16,6 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
-  //TODO: trenger ikke all funksjonalitet her
   bool _submittedWithValidData = false;
   bool _submitButtonPressed = false;
 
@@ -42,7 +40,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 children: [
                   _buildEmailInput(),
                   _buildPasswordInput(),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 25),
                   _submittedWithValidData
                       ? _buildLoadingCircle()
                       : _buildSubmitButton()

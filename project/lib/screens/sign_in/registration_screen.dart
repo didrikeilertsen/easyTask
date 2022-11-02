@@ -56,7 +56,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void _submitForm() async{
+  void _submitForm() async {
     setState(() {
       _submitButtonPressed = true;
       _submittedWithValidData = _isFormValid();
@@ -65,11 +65,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (_isFormValid()) {
       try {
         await widget.auth.createUserWithEmailAndPassword(_email, _password);
-      }
-      catch (e) {
+      } catch (e) {
         print(e.toString());
-      }
-      finally {
+      } finally {
         Navigator.of(context).pop();
       }
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/screens/project/create_project_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/screens/project_calendar_screen.dart';
 import 'package:project/screens/sign_in/landing_screen.dart';
@@ -25,7 +26,6 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/landingScreen':
-        //return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth(),));
         return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
 
       case '/registrationScreen':
@@ -36,6 +36,9 @@ class RouteGenerator {
 
       case '/tasks':
         return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
+
+      case '/createProject':
+        return MaterialPageRoute(builder: (_) => const CreateProjectScreen());
 
       case '/projects':
         return MaterialPageRoute(builder: (_) => const ProjectOverviewScreen());
