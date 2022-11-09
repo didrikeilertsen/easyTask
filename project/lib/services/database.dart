@@ -1,29 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project/models/projectTest.dart';
+import 'package:project/models/taskTest.dart';
 import 'package:project/services/api_path.dart';
 
 import '../models/job.dart';
 import '../models/project.dart';
+import 'firestore_service.dart';
 
-class Database extends ConsumerWidget {
-  const Database({super.key, required this.uid}) : assert(uid != null);
+class Database {
+  Database({required this.uid});
 
 //TODO: dette kan hentes fra en provider
   final String uid;
+  final _service = FirestoreService.instance;
 
-  // // this method takes a map of key-value-pairs that represents the fields we want to write in our document
-  // @override
-  // Future<void> createJob(Job job) async {
-  //
-  //   //path we will write to in the firebase
-  //   final path = APIPath.job(uid, 'job_abc');
-  //   final documentReference = FirebaseFirestore.instance.doc(path);
-  //
-  //   await documentReference.set(job.toMap());
-  // }
-
-  Future<void> createJob(Job job) => _setData(
+  Future<void> createJob(Job job) => _service.setData(
         //path we will write to in the firebase
         path: APIPath.job(uid, 'job_abc'),
 
@@ -31,27 +21,36 @@ class Database extends ConsumerWidget {
         data: job.toMap(),
       );
 
-  Future<void> createProject(Project project) => _setData(
+  // Future<void> createProject(Project project) => _service.setData(
+  //       //path we will write to in the firebase
+  //       path: APIPath.project(uid, 'project_id'),
+  //
+  //       //data to write to firebase
+  //       data: project.toMap(),
+  //     );
+
+  Future<void> createProjectTest(ProjectTest project) => _service.setData(
         //path we will write to in the firebase
-        path: APIPath.project(uid, 'project_id'),
+        path: APIPath.project(uid, project.title),
 
         //data to write to firebase
         data: project.toMap(),
       );
 
-  Future<void> _setData(
-      {required String path, required Map<String, dynamic> data}) async {
-    final reference = FirebaseFirestore.instance.doc(path);
-    print('$path: $data');
-    await reference.set(data);
-  }
+  ///Pushes a given Task-object to the database
+  Future<void> createTaskTest(TaskTest task) => _service.setData(
+        //path we will write to in the firebase
+        path: APIPath.task(uid, 'project_id', 'task_id'),
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
+        //data to write to firebase
+        data: task.toMap(),
+      );
+
+  ///Creates a stream that listens to projects
+  Stream<List<ProjectTest>> projectsStream() => _service.collectionStream(
+        path: APIPath.projects(uid),
+        builder: (data) => ProjectTest.fromMap(data),
+      );
+
+
 }
-
-//I would really recommend people to use ChangeNotifiers as that is a lot easier
-// to start out with and scales increadibly well together with Riverpod!

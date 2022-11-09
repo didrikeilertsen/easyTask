@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/screens/project/create_project_screen.dart';
+import 'package:project/screens/project/edit_project_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/screens/project_calendar_screen.dart';
 import 'package:project/screens/sign_in/landing_screen.dart';
@@ -14,10 +15,8 @@ import 'package:project/services/database.dart';
 ///This class separates the routing logic for the entire application
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-
     //TODO: this has to be changed
     final auth = FirebaseAuth.instance;
-
 
     //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
 
@@ -26,11 +25,10 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/landingScreen':
-
-      //TODO: this has to be changed
+        //TODO: this has to be changed
         return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
-        // return MaterialPageRoute(builder: (_) => LandingScreen(database: FirestoreDatabase(uid: auth.currentUser!.uid),auth: Auth()));
-        //return MaterialPageRoute(builder: (_) => LandingScreen(database: FirestoreDatabase(uid: auth.currentUser!.uid),auth: Auth()));
+      // return MaterialPageRoute(builder: (_) => LandingScreen(database: FirestoreDatabase(uid: auth.currentUser!.uid),auth: Auth()));
+      //return MaterialPageRoute(builder: (_) => LandingScreen(database: FirestoreDatabase(uid: auth.currentUser!.uid),auth: Auth()));
 
       case '/registrationScreen':
         return MaterialPageRoute(
@@ -42,8 +40,8 @@ class RouteGenerator {
       case '/tasks':
         return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
 
-      case '/createProject':
-        return MaterialPageRoute(builder: (_) => const CreateProjectScreen());
+      case '/editProject':
+        return MaterialPageRoute(builder: (_) => const EditProjectScreen(null));
 
       case '/projects':
         return MaterialPageRoute(builder: (_) => const ProjectOverviewScreen());

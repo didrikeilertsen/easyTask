@@ -9,6 +9,8 @@ class Auth {
 
   final _googleSignIn = GoogleSignIn();
 
+  final _fb = FacebookLogin();
+
   //TODO: denne er vel ikke nødvendig mtp at jeg hører på streamen i landing_screen
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
@@ -45,11 +47,21 @@ class Auth {
   }
 
   Future<User?> signInWithFacebook() async {
-    final fb = FacebookLogin();
-    final response = await fb.logIn(permissions: [
+    print("hallo");
+
+    // final response = await _fb.logIn();
+
+    final response = await _fb.logIn(permissions: [
       FacebookPermission.publicProfile,
       FacebookPermission.email
     ]);
+
+    print("hei");
+
+    print(response.toString());
+    print(response.accessToken);
+    print(response.status);
+    print(response.error);
 
     switch (response.status) {
       case FacebookLoginStatus.success:
@@ -73,8 +85,7 @@ class Auth {
 
 //todo google signout doesnt work properly. needs hot restart to get sign-in prompt after logging out with google
   Future<void> signOut() async {
-    final googleSignIn = GoogleSignIn();
-    await googleSignIn.signOut();
+    await _googleSignIn.signOut();
     // final facebookLogin = FacebookLogin();
     // await facebookLogin.logOut();
     await _firebaseAuth.signOut();
@@ -94,6 +105,8 @@ class Auth {
     final userCredentials = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     print(" user info = ${userCredentials.user?.uid}");
+
+    //TODO: add username if prvodied
     return userCredentials.user;
   }
 }

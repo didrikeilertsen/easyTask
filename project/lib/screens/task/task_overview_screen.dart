@@ -106,7 +106,7 @@ class _TaskOverviewBodyState extends State<TaskOverviewBody> {
   void sortByVariable(String attribute, bool descending) {
     List<Map> sortResults = [];
     for (Task task in items) {
-      sortResults.add(task.asMap());
+      sortResults.add(task.toMap());
     }
     if (descending) {
       sortResults.sort((a, b) => (a[attribute] as String).compareTo(

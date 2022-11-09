@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/screens/homeScreen.dart';
-import 'package:project/screens/jobs_page.dart';
 import 'package:project/screens/sign_in/sign_in_screen.dart';
 
 import '../../services/auth.dart';
@@ -46,7 +45,6 @@ class _LandingScreenState extends State<LandingScreen> {
           }
           if (snapshot.hasData) {
             return const HomeScreen();
-            //return JobsPage(auth: widget.auth);
           } else {
             return const SignInScreen();
           }
