@@ -1,17 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/services/auth.dart';
 import 'package:project/widgets/appbar_button.dart';
 
-/// Screen/Scaffold for the profile of the user.
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key, required this.auth});
+import '../../services/providers.dart';
 
-  final AuthBase auth;
+/// Screen/Scaffold for the profile of the user.
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+
+    final auth = ref.read(authenticationProvider);
+
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -39,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
             const Text("app settings"),
             const Text("app info"),
             TextButton(
-                onPressed: _signOut,
+                onPressed: () => _signOut(ref),
                 child: const Text(
                   "log out",
                   style: TextStyle(color: Colors.black87),
@@ -51,7 +57,9 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _signOut() async {
+  Future<void> _signOut(WidgetRef ref) async {
+
+    final auth = ref.read(authenticationProvider);
     try {
      await auth.signOut();
 

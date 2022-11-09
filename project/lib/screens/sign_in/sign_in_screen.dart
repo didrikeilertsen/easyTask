@@ -1,25 +1,20 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/services/auth.dart';
 import 'package:project/widgets/sign_in_button.dart';
 import 'package:project/widgets/sign_up_button.dart';
-
 import '../../main.dart';
-import '../../models/project.dart';
-import '../../static_data/example_data.dart';
-import '../profile/create_profile_screen.dart';
+import '../../services/providers.dart';
 
 ///Represents the sign-in screen for the application
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key, required this.auth});
-
-  final AuthBase auth;
+class SignInScreen extends ConsumerWidget {
+  const SignInScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -28,12 +23,12 @@ class SignInScreen extends StatelessWidget {
             fit: BoxFit.fill,
           ),
         ),
-        child: _buildContent(context),
+        child: _buildContent(context, ref),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
         Padding(
@@ -43,8 +38,6 @@ class SignInScreen extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
               child: Container(
-                // width: MediaQuery.of(context).size.width,
-                // height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.8),
                     boxShadow: [
@@ -60,14 +53,23 @@ class SignInScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     _buildLogo(),
+                    const SizedBox(height: 80.0),
+
+                    Consumer(builder: (context, ref, child) {
+                      final number = ref.watch(numberProvider);
+                      return Text(
+                        number.toString(),
+                        textAlign: TextAlign.center,
+                      );
+                    }),
+
                     // _buildSignInWithExistingAccountButton(),
                     // _buildSignUpButton(),
-                    const SizedBox(height: 80.0),
-                    _buildGoogleSignInButtons(context),
+                    _buildGoogleSignInButtons(ref),
                     const SizedBox(height: 15.0),
-                    _buildFacebookSignInButtons(context),
+                    _buildFacebookSignInButtons(ref),
                     const SizedBox(height: 15.0),
-                    _buildAppleSignInButtons(context),
+                    _buildAppleSignInButtons(context, ref),
                     const SizedBox(height: 25.0),
 
                     const Text(
@@ -76,6 +78,7 @@ class SignInScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15.0),
+
                     SignUpButton(
                       text: "Sign up with email",
                       onPressed: () {
@@ -113,28 +116,28 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFacebookSignInButtons(BuildContext context) {
+  Widget _buildFacebookSignInButtons(WidgetRef ref) {
     return SignInButton(
       icon: PhosphorIcons.facebookLogo,
       text: "Continue with Facebook",
-      onPressed: () => _signInWithFacebook(context) ,
+      onPressed: () => _signInWithFacebook(ref),
     );
   }
 
   //TODO buildcontext and project parameters?
-  Widget _buildGoogleSignInButtons(BuildContext context) {
+  Widget _buildGoogleSignInButtons(WidgetRef ref) {
     return SignInButton(
       icon: PhosphorIcons.googleLogo,
       text: "Continue with Google",
-      onPressed: () => _signInWithGoogle(context),
+      onPressed: () => _signInWithGoogle(ref),
     );
   }
 
-  Widget _buildAppleSignInButtons(BuildContext context) {
+  Widget _buildAppleSignInButtons(BuildContext context, WidgetRef ref) {
     return SignInButton(
       icon: PhosphorIcons.appleLogo,
       text: "Continue with Apple",
-      onPressed: () => _signInAnonymously(context),
+      onPressed: () => _signInAnonymously(context, ref),
     );
   }
 
@@ -175,51 +178,39 @@ class SignInScreen extends StatelessWidget {
     }
   }
 
-  Future<void> _signInAnonymously(BuildContext context) async {
+  Future<void> _signInAnonymously(BuildContext context, WidgetRef ref) async {
+    final auth = ref.read(authenticationProvider);
+
+    //TODO: add dialog to other signin methods
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
-
     try {
       final user = await auth.signInAnonymously();
       print(" user info = ${user?.uid}");
-
-      //await Future.delayed(const Duration(seconds: 3));
-
     } catch (e) {
       print(e.toString());
     } finally {
       navigatorKey.currentState!.pop();
     }
-    //navigatorKey.currentState!.popUntil((route) => route.isActive);
   }
 
-  Future<void> _signInWithGoogle(BuildContext context) async {
-    // showDialog(
-    //     context: context,
-    //     barrierDismissible: false,
-    //     builder: (context) => const Center(child: CircularProgressIndicator(),
-    //     ));
+  Future<void> _signInWithGoogle(WidgetRef ref) async {
+    final auth = ref.read(authenticationProvider);
 
     try {
       final user = await auth.signInWithGoogle();
       print(" user info = ${user?.uid}");
-
-      //await Future.delayed(const Duration(seconds: 3));
-
     } catch (e) {
       print(e.toString());
     }
-
-    // finally {
-    //   navigatorKey.currentState!.pop();
-    // }
   }
 
-  Future<void> _signInWithFacebook(BuildContext context) async {
+  Future<void> _signInWithFacebook(WidgetRef ref) async {
+    final auth = ref.read(authenticationProvider);
     try {
       final user = await auth.signInWithFacebook();
       print(" user info = ${user?.uid}");

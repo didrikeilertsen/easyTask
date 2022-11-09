@@ -5,7 +5,7 @@ import 'package:string_validator/string_validator.dart';
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key, required this.auth}) : super(key: key);
 
-  final AuthBase auth;
+  final Auth auth;
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();

@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final screens = [
     const ProjectOverviewScreen(),
-    ProfileScreen(auth: Auth()),
+    const ProfileScreen(),
   ];
 
   @override

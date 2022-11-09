@@ -6,7 +6,7 @@ import '../../services/auth.dart';
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key, required this.auth}) : super(key: key);
 
-  final AuthBase auth;
+  final Auth auth;
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
