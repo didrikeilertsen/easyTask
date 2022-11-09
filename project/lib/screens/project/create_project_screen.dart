@@ -1,11 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:project/models/project.dart';
+import 'package:project/models/projectTest.dart';
+import 'package:project/models/taskTest.dart';
 import 'package:project/widgets/appbar_button.dart';
-import 'package:project/widgets/input_field.dart';
+
+import '../../models/task.dart';
+import '../../services/providers.dart';
 
 /// Screen/Scaffold for creating a new projext.
-class CreateProjectScreen extends StatelessWidget {
-  const CreateProjectScreen({super.key});
+class CreateProjectScreen extends ConsumerStatefulWidget {
+  const CreateProjectScreen({Key? key}): super(key: key);
+
+  @override
+  CreateProjectScreenState createState() => CreateProjectScreenState();
+
+}
+
+class CreateProjectScreenState extends ConsumerState<CreateProjectScreen> {
+
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  String get _title => _titleController.text;
+
+  String get _description => _descriptionController.text;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +46,7 @@ class CreateProjectScreen extends StatelessWidget {
         actions: <Widget>[
           AppBarButton(
             handler: () {},
+            //handler: _createProject,
             tooltip: "Create new project",
             icon: PhosphorIcons.check,
           )
@@ -35,24 +57,63 @@ class CreateProjectScreen extends StatelessWidget {
         child: Form(
           child: ListView(
             children: <Widget>[
-              const InputField(
-                label: "title",
-                placeholderText: "a concise description for the project...",
-                keyboardType: TextInputAction.next,
+              TextField(
+                key: const Key("title_input"),
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: "Title"
+                ),
+                //enabled: !_submittedWithValidData,
               ),
-              const SizedBox(
-                height: 16.0,
+              TextField(
+                key: const Key("title_input"),
+                controller: _descriptionController,
+                decoration: const InputDecoration(
+                    labelText: "Description (optional)"
+                ),
               ),
-              InputField(
-                label: "description",
-                placeholderText: "describe your project here",
-                keyboardType: TextInputAction.done,
-                onSubmit: () {},
-              ),
+              ElevatedButton(onPressed: _createProject, child: Text("Submit"))// const InputField(
+              //   label: "title",
+              //   placeholderText: "a concise description for the project...",
+              //   keyboardType: TextInputAction.next,
+              // ),
+              // const SizedBox(
+              //   height: 16.0,
+              // ),
+              // InputField(
+              //   key: const Key("description_input"),
+              //   label: "description",
+              //   placeholderText: "describe your project here",
+              //   keyboardType: TextInputAction.done,
+              //   onSubmit: () {},
+              //),
             ],
-          ),
-        ),
-      ),
+          ),)
+        ,
+      )
+      ,
     );
   }
+
+
+  void _createProject() async {
+      final database = ref.watch(databaseProvider);
+
+      print("-------------------------------- $_title -------------------");
+
+      await database.createProjectTest(ProjectTest(title: _title, description: _description));
+  }
+
+  void _createTask() async {
+    final database = ref.watch(databaseProvider);
+
+    print("-------------------------------- $_title -------------------");
+
+    await database.createTaskTest(TaskTest(title: _title));
+
+
+    Navigator.of(context).pop();
+  }
+
 }
+
