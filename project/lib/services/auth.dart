@@ -83,11 +83,9 @@ class Auth {
     }
   }
 
-//todo google signout doesnt work properly. needs hot restart to get sign-in prompt after logging out with google
   Future<void> signOut() async {
     await _googleSignIn.signOut();
-    // final facebookLogin = FacebookLogin();
-    // await facebookLogin.logOut();
+    //await _fb.logOut();
     await _firebaseAuth.signOut();
   }
 
@@ -106,7 +104,7 @@ class Auth {
         email: email, password: password);
     print(" user info = ${userCredentials.user?.uid}");
 
-    //TODO: add username if prvodied
+    //TODO: add username if provided
     return userCredentials.user;
   }
 }

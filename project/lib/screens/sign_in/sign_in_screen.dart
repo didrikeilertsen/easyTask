@@ -211,6 +211,7 @@ class SignInScreen extends ConsumerWidget {
 
   Future<void> _signInWithFacebook(WidgetRef ref) async {
     final auth = ref.read(authenticationProvider);
+    print("h");
     try {
       final user = await auth.signInWithFacebook();
       print(" user info = ${user?.uid}");

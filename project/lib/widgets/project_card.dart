@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../models/project.dart';
-import '../models/task.dart';
 
 /// Represents a project as a card used on project screen.
 class ProjectCard extends StatelessWidget {
-  //const ProjectCard({super.key});
-
-  //TODO: espen commit
-  final Project project;
-
   const ProjectCard({super.key, required this.project});
+
+  final Project project;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +22,7 @@ class ProjectCard extends StatelessWidget {
           child: Column(
             children: [
               Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(project.title)
-              ),
+                  alignment: Alignment.centerLeft, child: Text(project.title)),
               const SizedBox(height: 2),
               Text(
                 _buildDescription(project),
@@ -42,26 +36,18 @@ class ProjectCard extends StatelessWidget {
     );
   }
 
-String _buildDescription(Project project){
-  String description = "";
+  String _buildDescription(Project project) {
+    String description = "";
 
-  int i = 0;
-  //project.tasks[0].description
-  while(i < project.tasks.length) {
-    String s = project.tasks[i].description;
+    int i = 0;
+    //project.tasks[0].description
+    while (i < project.tasks.length) {
+      String s = project.tasks[i].description;
 
-    description = description + "• " + s + "\n";
+      description = description + "• " + s + "\n";
 
-    i++;
+      i++;
+    }
+    return description;
   }
-
-
-  // for (Task task in project) {
-  //
-  //   projectCards.add(ProjectCard(project: project));
-  // }
-   return description;
 }
-
-}
-

@@ -113,6 +113,18 @@ class ProjectOverviewScreen extends ConsumerWidget {
               ),
             );
           }
+
+          if (!snapshot.hasData) {
+            return Column(
+
+              children: const [
+                SizedBox(height: 230),
+                Center(child: Text("No projects added yet")),
+                Center(child: Text("Press the + symbol to add your first project")),
+              ],
+            );
+          }
+
           if (snapshot.hasError) {
             return const Center(child: Text("Some error occurred"));
           }
@@ -123,13 +135,5 @@ class ProjectOverviewScreen extends ConsumerWidget {
               child: CircularProgressIndicator(),
               ));
         });
-  }
-
-  List<Widget> _buildProjectList(List<Project> projects) {
-    List<Widget> projectCards = [];
-    for (Project project in projects) {
-      projectCards.add(ProjectCard(project: project));
-    }
-    return projectCards;
   }
 }

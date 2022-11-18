@@ -5,7 +5,7 @@ import 'package:project/screens/project/edit_project_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/screens/project_calendar_screen.dart';
 import 'package:project/screens/sign_in/landing_screen.dart';
-import 'package:project/screens/sign_in/loginScreen.dart';
+import 'package:project/screens/sign_in/login_screen.dart';
 import 'package:project/screens/sign_in/registration_screen.dart';
 import 'package:project/screens/task/task_detail_screen.dart';
 import 'package:project/screens/task/task_overview_screen.dart';
