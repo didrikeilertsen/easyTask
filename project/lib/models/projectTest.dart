@@ -6,16 +6,16 @@ class ProjectTest {
   // The name of the project.
   String title;
   // The description of the project.
-  String? description;
+  String description;
 
   ProjectTest({this.title = "project title", this.description = ""});
 
   factory ProjectTest.fromMap(Map<String, dynamic> data) {
     final String title = data["title"];
-    //final String description = data["description"];
+    final String description = data["description"];
     return ProjectTest(
       title: title,
-      //description: description,
+      description: description,
     );
   }
 

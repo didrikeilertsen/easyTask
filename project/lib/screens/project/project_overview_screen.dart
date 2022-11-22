@@ -6,7 +6,7 @@ import 'package:project/services/providers.dart';
 import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/project_card_test.dart';
 import 'package:project/widgets/search_bar.dart';
-import '../project_screen.dart';
+import 'project_screen.dart';
 
 /// Screen/Scaffold for the overview of projects the user have access to.
 class ProjectOverviewScreen extends ConsumerWidget {
@@ -35,31 +35,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
           )
         ],
       ),
-
-      // body: Padding(
-      //   padding: const EdgeInsets.all(0),
-      //   child: Column(
-      //     children: [
-      //       SearchBar(
-      //         placeholderText: "search for project",
-      //         searchFunction: () {},
-      //         textEditingController: TextEditingController(),
-      //         filterModal: const SizedBox(),
-      //       ),
-      //       const Padding(
-      //         padding: EdgeInsets.only(top: 10),
-      //       ),
-      //       Expanded(
-      //         child: SingleChildScrollView(
-      //           child: Wrap(
-      //             alignment: WrapAlignment.spaceBetween,
-      //             children: _buildProjectList(projects),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
 
       body: Column(children: [
         SearchBar(
