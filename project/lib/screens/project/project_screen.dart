@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -6,6 +5,7 @@ import 'package:project/models/project.dart';
 import 'package:project/widgets/appbar_button.dart';
 import '../../../services/providers.dart';
 import '../../widgets/search_bar.dart';
+import 'edit_project_screen.dart';
 
 /// Screen/Scaffold for creating a new projext.
 class ProjectScreen extends ConsumerStatefulWidget {
@@ -36,18 +36,16 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
         title: Text(widget.project == null ? '' : widget.project!.title),
         leading: AppBarButton(
           handler: () => Navigator.of(context).pop(),
-          tooltip: "Add new task",
+          tooltip: "Go back",
           icon: PhosphorIcons.caretLeftLight,
           color: Colors.black,
         ),
         actions: [
           AppBarButton(
-            handler: () {
-              Navigator.of(context).pushNamed('/editTask');
-            },
-            tooltip: "Add new task",
-            icon: PhosphorIcons.plus,
-          )
+            handler: () {EditProjectScreen.show(context, widget.project);},
+            tooltip: "Edit the current project",
+            icon: PhosphorIcons.pencilSimpleLight,
+          ),
         ],
       ),
       body: Column(children: [
@@ -74,6 +72,11 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/editTask');
+                  },
+                  child: Text("add task")),
               Text(widget.project == null ? '' : widget.project!.description),
               Text(widget.project == null ? '' : widget.project!.description),
             ],

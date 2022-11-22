@@ -12,7 +12,7 @@ class Database {
   final String uid;
   final _service = FirestoreService.instance;
 
-  Future<void> createProjectTest(Project project) => _service.setData(
+  Future<void> createProject(Project project) => _service.setData(
         //path we will write to in the firebase
         path: APIPath.project(uid, project.title),
 

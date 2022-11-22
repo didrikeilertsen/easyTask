@@ -32,13 +32,12 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
   String _title = "";
   String _description = "";
 
-
   @override
   void initState() {
     super.initState();
     if (widget.project != null) {
       _title = widget.project!.title;
-      _description = widget.project!.description!;
+      _description = widget.project!.description;
     }
   }
 
@@ -53,9 +52,9 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     return false;
   }
 
+  //TODO: need to seperate edit project screen and create project screen. This method doesnt update a project, it creates a new one
   Future<void> _submit() async {
     final database = ref.watch(databaseProvider);
-
     if (_validateAndSaveForm()) {
       try {
         final projects = await database.projectsStream().first;
@@ -69,7 +68,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
           );
         } else {
           final project = Project(title: _title, description: _description);
-          await database.createProjectTest(project);
+          await database.createProject(project);
           Navigator.of(context).pop();
         }
       } on FirebaseException catch (e) {
@@ -107,14 +106,14 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
-        decoration: InputDecoration(labelText: 'project name'),
+        decoration: const InputDecoration(labelText: 'project name'),
         initialValue: _title,
         //validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _title = value!,
       ),
       SizedBox(height: 10),
       TextFormField(
-        decoration: InputDecoration(labelText: 'description (optional)'),
+        decoration: const InputDecoration(labelText: 'description (optional)'),
         initialValue: _description,
         onSaved: (value) => _description = value!,
       ),
