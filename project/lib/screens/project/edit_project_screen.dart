@@ -59,17 +59,21 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
       try {
         final project = Project(title: _title, description: _description);
         if (widget.project != null) {
-          database.updateProject(widget.project!, project.toMap());
+          //remove the previous project and add a new one.
+          // This is done instead of updating so the document name changes too
+          database.removeProject(widget.project!);
+          database.createProject(project);
 
           //TODO: need to get project info to update when popping back
-          //TODO: det funker ikke å oppdatere description
           Navigator.of(context).pop();
         } else {
+
+
           // final projects = await database.projectsStream().first;
           // final allTitles = projects.map((project) => project.title).toList();
           // if (allTitles.contains(_title)) {
           //   const AlertDialog(
-          //     //TODO: dette funker ikke
+          //     //TODØ: dette funker ikke
           //     title: Text('Name already used'),
           //     content: Text('Please choose a different project name'),
           //     // defaultActionText: 'OK',

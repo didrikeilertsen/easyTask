@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 ///A singleton-class which seperates the firestore-logic
 class FirestoreService {
-
   FirestoreService._();
-  static final instance = FirestoreService._();
 
+  static final instance = FirestoreService._();
 
   ///Helper method which uploads data to the database
   Future<void> setData(
@@ -16,11 +14,20 @@ class FirestoreService {
     await reference.set(data);
   }
 
+  ///Helper method which uploads data to the database
+  Future<void> removeData({required String path}) async {
+    final reference = FirebaseFirestore.instance.doc(path);
+    print('deleting $path');
+    await reference.delete();
+  }
+
+//TODO: delete this?
   ///Helper method which updates data in the database
   Future<void> updateData(
       {required String path, required Map<String, dynamic> data}) async {
     final reference = FirebaseFirestore.instance.doc(path);
-    print('$path: $data');
+    print(' adding: $path: $data');
+
     await reference.update(data);
   }
 
@@ -35,10 +42,7 @@ class FirestoreService {
     return snapshots.map((snapshot) => (snapshot.docs
         .map(
           (snapshot) => builder(snapshot.data()),
-    )
+        )
         .toList()));
   }
-
-
-
 }

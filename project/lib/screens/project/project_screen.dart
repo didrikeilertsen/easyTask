@@ -69,6 +69,7 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ElevatedButton(
                   onPressed: () {
@@ -76,6 +77,9 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
                   },
                   child: const Text("add task")),
               Text(widget.project.description),
+              const SizedBox(height: 150,),
+              const Center(child: Text("No tasks added")),
+
             ],
           ),
         ),
