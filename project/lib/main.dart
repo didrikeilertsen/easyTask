@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project/services/routeGenerator.dart';
 import 'package:project/styles/themes.dart';
-import './models/project.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +15,6 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
-  //static List<Project> projects = ExampleData.projects;
 
   @override
   Widget build(BuildContext context) {

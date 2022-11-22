@@ -10,9 +10,6 @@ class Task {
   // The description of the task.
   String description;
 
-  // The list of tags belonging to the task.
-  List<Tag> tags;
-
   // Whether or not the task has been completed.
   bool done;
 
@@ -24,15 +21,14 @@ class Task {
 
   Task(
       {this.title = "task title",
-      this.description = "task description",
-      this.tags = const [],
-      this.done = false,
-      this.deadline,
-      this.comments = const []});
+        this.description = "task description",
+        this.done = false,
+        this.deadline,
+        this.comments = const []});
 
   /// Returns the data content of the task as a dynamic list.
   List<dynamic> values() {
-    return [title, description, done, deadline, tags];
+    return [title, description, done, deadline];
   }
 
   /// Returns the data content of the task as a map.
@@ -40,7 +36,6 @@ class Task {
     return {
       "title": title,
       "description": description,
-      "tags": tags,
       "done": done,
       "deadline": deadline,
       "comments": comments

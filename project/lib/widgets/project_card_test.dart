@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../models/projectTest.dart';
+import '../models/project.dart';
 
 /// Represents a project as a card used on project screen.
 class ProjectCardTest extends StatelessWidget {
   const ProjectCardTest({super.key, required this.project, required this.onTap});
 
-  final ProjectTest project;
+  final Project project;
   final VoidCallback onTap;
 
   @override

@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:project/models/projectOriginal.dart';
 import 'package:project/models/project.dart';
-import 'package:project/models/projectTest.dart';
-import 'package:project/models/taskTest.dart';
+import 'package:project/models/task.dart';
 import 'package:project/widgets/appbar_button.dart';
 
-import '../../models/task.dart';
+import '../../models/taskOriginal.dart';
 import '../../services/providers.dart';
 
 /// Screen/Scaffold for creating a new projext.
@@ -101,19 +101,19 @@ class CreateProjectScreenState extends ConsumerState<CreateProjectScreen> {
 
       print("-------------------------------- $_title -------------------");
 
-      await database.createProjectTest(ProjectTest(title: _title, description: _description));
+      await database.createProjectTest(Project(title: _title, description: _description));
   }
 
-  void _createTask() async {
-    final database = ref.watch(databaseProvider);
-
-    print("-------------------------------- $_title -------------------");
-
-    await database.createTaskTest(TaskTest(title: _title));
-
-
-    Navigator.of(context).pop();
-  }
+  // void _createTask() async {
+  //   final database = ref.watch(databaseProvider);
+  //
+  //   print("-------------------------------- $_title -------------------");
+  //
+  //   await database.createTaskTest(TaskTest(title: _title));
+  //
+  //
+  //   Navigator.of(context).pop();
+  // }
 
 }
 

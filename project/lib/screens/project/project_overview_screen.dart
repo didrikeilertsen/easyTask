@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/models/projectTest.dart';
+import 'package:project/models/project.dart';
 import 'package:project/services/providers.dart';
 import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/project_card_test.dart';
@@ -53,7 +53,7 @@ class ProjectOverviewScreen extends ConsumerWidget {
 
   Widget _buildContent(BuildContext context, WidgetRef ref) {
     final database = ref.watch(databaseProvider);
-    return StreamBuilder<List<ProjectTest>>(
+    return StreamBuilder<List<Project>>(
         stream: database.projectsStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

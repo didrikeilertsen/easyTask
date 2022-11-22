@@ -3,12 +3,15 @@ import 'package:project/models/tag.dart';
 import 'comment.dart';
 
 /// Represents a task in a project.
-class TaskTest {
+class Task {
   // The name of the task.
   String title;
 
   // The description of the task.
   String description;
+
+  // The list of tags belonging to the task.
+  List<Tag> tags;
 
   // Whether or not the task has been completed.
   bool done;
@@ -19,16 +22,17 @@ class TaskTest {
   // List of comments of this task.
   List<Comment> comments;
 
-  TaskTest(
+  Task(
       {this.title = "task title",
-        this.description = "task description",
-        this.done = false,
-        this.deadline,
-        this.comments = const []});
+      this.description = "task description",
+      this.tags = const [],
+      this.done = false,
+      this.deadline,
+      this.comments = const []});
 
   /// Returns the data content of the task as a dynamic list.
   List<dynamic> values() {
-    return [title, description, done, deadline];
+    return [title, description, done, deadline, tags];
   }
 
   /// Returns the data content of the task as a map.
@@ -36,6 +40,7 @@ class TaskTest {
     return {
       "title": title,
       "description": description,
+      "tags": tags,
       "done": done,
       "deadline": deadline,
       "comments": comments

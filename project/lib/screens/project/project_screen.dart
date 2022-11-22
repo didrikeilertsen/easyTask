@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/models/projectTest.dart';
+import 'package:project/models/project.dart';
 import 'package:project/widgets/appbar_button.dart';
 import '../../../services/providers.dart';
 import '../../widgets/search_bar.dart';
@@ -11,9 +11,9 @@ import '../../widgets/search_bar.dart';
 class ProjectScreen extends ConsumerStatefulWidget {
   const ProjectScreen(this.project, {Key? key}) : super(key: key);
 
-  final ProjectTest project;
+  final Project project;
 
-  static Future<void> show(BuildContext context, ProjectTest project) async {
+  static Future<void> show(BuildContext context, Project project) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ProjectScreen(project),

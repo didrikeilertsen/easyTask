@@ -6,8 +6,8 @@ import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/filter_modal.dart';
 import 'package:project/widgets/search_bar.dart';
 import 'package:project/widgets/task_list_item.dart';
-import 'package:project/models/project.dart';
-import 'package:project/models/task.dart';
+import 'package:project/models/projectOriginal.dart';
+import 'package:project/models/taskOriginal.dart';
 
 import '../../static_data/sorting_methods.dart';
 import '../../models/tag.dart';
@@ -17,7 +17,7 @@ class TaskOverviewScreen extends StatelessWidget {
   const TaskOverviewScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final Project project = ModalRoute.of(context)!.settings.arguments as Project;
+    final ProjectOriginal project = ModalRoute.of(context)!.settings.arguments as ProjectOriginal;
     return Scaffold(
       appBar: AppBar(
         title: Text(project.title),
@@ -63,7 +63,7 @@ class TaskOverviewScreen extends StatelessWidget {
 
 /// Body for the overview of tasks in the task-overview screen.
 class TaskOverviewBody extends StatefulWidget {
-  final Project project;
+  final ProjectOriginal project;
   const TaskOverviewBody({super.key, required this.project});
 
   @override
@@ -189,7 +189,7 @@ class _TaskOverviewBodyState extends State<TaskOverviewBody> {
 
   @override
   Widget build(BuildContext context) {
-    Project project = ModalRoute.of(context)!.settings.arguments as Project;
+    ProjectOriginal project = ModalRoute.of(context)!.settings.arguments as ProjectOriginal;
     return Column(
       children: <Widget>[
         SearchBar(
@@ -227,8 +227,8 @@ class _TaskOverviewBodyState extends State<TaskOverviewBody> {
   }
 
   /// Builds the list of tag filter options.
-  /// [Project] the project to retrieve the tags of.
-  List<FilterOption> _buildTagFilterOptions(Project project) {
+  /// [ProjectOriginal] the project to retrieve the tags of.
+  List<FilterOption> _buildTagFilterOptions(ProjectOriginal project) {
     List<FilterOption> options = [];
 
     for (Tag tag in project.tags) {

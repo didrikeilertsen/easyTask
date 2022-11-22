@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/models/projectTest.dart';
+import 'package:project/models/project.dart';
 import 'package:project/widgets/appbar_button.dart';
 
 import '../../services/providers.dart';
@@ -11,9 +11,9 @@ import '../../services/providers.dart';
 class EditProjectScreen extends ConsumerStatefulWidget {
   const EditProjectScreen(this.project, {Key? key}) : super(key: key);
 
-  final ProjectTest? project;
+  final Project? project;
 
-  static Future<void> show(BuildContext context, ProjectTest project) async {
+  static Future<void> show(BuildContext context, Project project) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EditProjectScreen(project),
@@ -68,7 +68,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
             // defaultActionText: 'OK',
           );
         } else {
-          final project = ProjectTest(title: _title, description: _description);
+          final project = Project(title: _title, description: _description);
           await database.createProjectTest(project);
           Navigator.of(context).pop();
         }

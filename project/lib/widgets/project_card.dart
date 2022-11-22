@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../models/project.dart';
+import '../models/projectOriginal.dart';
 
 /// Represents a project as a card used on project screen.
 class ProjectCard extends StatelessWidget {
   const ProjectCard({super.key, required this.project});
 
-  final Project project;
+  final ProjectOriginal project;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ProjectCard extends StatelessWidget {
     );
   }
 
-  String _buildDescription(Project project) {
+  String _buildDescription(ProjectOriginal project) {
     String description = "";
 
     int i = 0;
