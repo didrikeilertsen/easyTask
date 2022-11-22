@@ -7,15 +7,13 @@ import '../../services/providers.dart';
 
 /// Screen/Scaffold for creating a new projext.
 class CreateProjectScreen extends ConsumerStatefulWidget {
-  const CreateProjectScreen({Key? key}): super(key: key);
+  const CreateProjectScreen({Key? key}) : super(key: key);
 
   @override
   CreateProjectScreenState createState() => CreateProjectScreenState();
-
 }
 
 class CreateProjectScreenState extends ConsumerState<CreateProjectScreen> {
-
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -55,19 +53,17 @@ class CreateProjectScreenState extends ConsumerState<CreateProjectScreen> {
               TextField(
                 key: const Key("title_input"),
                 controller: _titleController,
-                decoration: const InputDecoration(
-                  labelText: "Title"
-                ),
+                decoration: const InputDecoration(labelText: "Title"),
                 //enabled: !_submittedWithValidData,
               ),
               TextField(
                 key: const Key("title_input"),
                 controller: _descriptionController,
-                decoration: const InputDecoration(
-                    labelText: "Description (optional)"
-                ),
+                decoration:
+                    const InputDecoration(labelText: "Description (optional)"),
               ),
-              ElevatedButton(onPressed: _createProject, child: Text("Submit"))// const InputField(
+              ElevatedButton(onPressed: _createProject, child: Text("Submit"))
+              // const InputField(
               //   label: "title",
               //   placeholderText: "a concise description for the project...",
               //   keyboardType: TextInputAction.next,
@@ -83,32 +79,30 @@ class CreateProjectScreenState extends ConsumerState<CreateProjectScreen> {
               //   onSubmit: () {},
               //),
             ],
-          ),)
-        ,
-      )
-      ,
+          ),
+        ),
+      ),
     );
   }
 
-
   void _createProject() async {
-      final database = ref.watch(databaseProvider);
+    final database = ref.watch(databaseProvider);
 
-      print("-------------------------------- $_title -------------------");
+    print("-------------------------------- $_title -------------------");
 
-      await database.createProject(Project(title: _title, description: _description));
+    await database
+        .createProject(Project(title: _title, description: _description));
   }
 
-  // void _createTask() async {
-  //   final database = ref.watch(databaseProvider);
-  //
-  //   print("-------------------------------- $_title -------------------");
-  //
-  //   await database.createTaskTest(TaskTest(title: _title));
-  //
-  //
-  //   Navigator.of(context).pop();
-  // }
+// void _createTask() async {
+//   final database = ref.watch(databaseProvider);
+//
+//   print("-------------------------------- $_title -------------------");
+//
+//   await database.createTaskTest(TaskTest(title: _title));
+//
+//
+//   Navigator.of(context).pop();
+// }
 
 }
-

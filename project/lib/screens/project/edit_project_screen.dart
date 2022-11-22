@@ -57,19 +57,28 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     final database = ref.watch(databaseProvider);
     if (_validateAndSaveForm()) {
       try {
-        final projects = await database.projectsStream().first;
-        final allTitles = projects.map((project) => project.title).toList();
-        if (allTitles.contains(_title)) {
-          const AlertDialog(
-            //TODO: dette funker ikke
-            title: Text('Name already used'),
-            content: Text('Please choose a different project name'),
-            // defaultActionText: 'OK',
-          );
+        final project = Project(title: _title, description: _description);
+        if (widget.project != null) {
+          database.updateProject(widget.project!, project.toMap());
+
+          //TODO: need to get project info to update when popping back
+          //TODO: det funker ikke å oppdatere description
+          Navigator.of(context).pop();
         } else {
-          final project = Project(title: _title, description: _description);
+          // final projects = await database.projectsStream().first;
+          // final allTitles = projects.map((project) => project.title).toList();
+          // if (allTitles.contains(_title)) {
+          //   const AlertDialog(
+          //     //TODO: dette funker ikke
+          //     title: Text('Name already used'),
+          //     content: Text('Please choose a different project name'),
+          //     // defaultActionText: 'OK',
+          //   );
+          // } else {
+
           await database.createProject(project);
           Navigator.of(context).pop();
+          // }
         }
       } on FirebaseException catch (e) {
         const AlertDialog(

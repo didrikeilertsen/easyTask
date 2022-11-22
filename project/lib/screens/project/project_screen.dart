@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/widgets/appbar_button.dart';
-import '../../../services/providers.dart';
 import '../../widgets/search_bar.dart';
 import 'edit_project_screen.dart';
 
@@ -33,7 +32,7 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text(widget.project == null ? '' : widget.project!.title),
+        title: Text(widget.project.title),
         leading: AppBarButton(
           handler: () => Navigator.of(context).pop(),
           tooltip: "Go back",
@@ -64,7 +63,6 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
   }
 
   Widget _buildContent(BuildContext context) {
-    final database = ref.watch(databaseProvider);
     return SingleChildScrollView(
       child: Align(
         alignment: Alignment.centerLeft,
@@ -76,9 +74,8 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
                   onPressed: () {
                     Navigator.of(context).pushNamed('/editTask');
                   },
-                  child: Text("add task")),
-              Text(widget.project == null ? '' : widget.project!.description),
-              Text(widget.project == null ? '' : widget.project!.description),
+                  child: const Text("add task")),
+              Text(widget.project.description),
             ],
           ),
         ),

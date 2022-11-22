@@ -16,6 +16,14 @@ class FirestoreService {
     await reference.set(data);
   }
 
+  ///Helper method which updates data in the database
+  Future<void> updateData(
+      {required String path, required Map<String, dynamic> data}) async {
+    final reference = FirebaseFirestore.instance.doc(path);
+    print('$path: $data');
+    await reference.update(data);
+  }
+
   ///Helper method which creates a generic stream from a given database-path
   Stream<List<T>> collectionStream<T>({
     required String path,
