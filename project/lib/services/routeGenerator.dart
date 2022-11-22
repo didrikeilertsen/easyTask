@@ -1,16 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project/screens/project/create_project_screen.dart';
 import 'package:project/screens/project/edit_project_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
 import 'package:project/screens/project_calendar_screen.dart';
 import 'package:project/screens/sign_in/landing_screen.dart';
 import 'package:project/screens/sign_in/login_screen.dart';
 import 'package:project/screens/sign_in/registration_screen.dart';
+import 'package:project/screens/task/edit_task_screen.dart';
 import 'package:project/screens/task/task_detail_screen.dart';
 import 'package:project/screens/task/task_overview_screen.dart';
 import 'package:project/services/auth.dart';
-import 'package:project/services/database.dart';
 
 ///This class separates the routing logic for the entire application
 class RouteGenerator {
@@ -42,6 +41,9 @@ class RouteGenerator {
 
       case '/editProject':
         return MaterialPageRoute(builder: (_) => const EditProjectScreen(null));
+
+      case '/editTask':
+        return MaterialPageRoute(builder: (_) => const EditTaskScreen(null));
 
       case '/projects':
         return MaterialPageRoute(builder: (_) => const ProjectOverviewScreen());

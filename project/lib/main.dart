@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project/services/routeGenerator.dart';
-import 'package:project/static_data/example_data.dart';
 import 'package:project/styles/themes.dart';
 import './models/project.dart';
 
@@ -16,7 +15,9 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static List<Project> projects = ExampleData.projects;
+
+
+  //static List<Project> projects = ExampleData.projects;
 
   @override
   Widget build(BuildContext context) {

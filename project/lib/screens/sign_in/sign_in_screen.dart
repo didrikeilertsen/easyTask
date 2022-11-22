@@ -54,7 +54,6 @@ class SignInScreen extends ConsumerWidget {
                   children: <Widget>[
                     _buildLogo(),
                     const SizedBox(height: 80.0),
-
                     Consumer(builder: (context, ref, child) {
                       final number = ref.watch(numberProvider);
                       return Text(
@@ -62,23 +61,18 @@ class SignInScreen extends ConsumerWidget {
                         textAlign: TextAlign.center,
                       );
                     }),
-
-                    // _buildSignInWithExistingAccountButton(),
-                    // _buildSignUpButton(),
                     _buildGoogleSignInButtons(ref),
                     const SizedBox(height: 15.0),
                     _buildFacebookSignInButtons(ref),
                     const SizedBox(height: 15.0),
                     _buildAppleSignInButtons(context, ref),
                     const SizedBox(height: 25.0),
-
                     const Text(
                       "or",
                       style: TextStyle(fontSize: 12),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15.0),
-
                     SignUpButton(
                       text: "Sign up with email",
                       onPressed: () {
@@ -86,26 +80,7 @@ class SignInScreen extends ConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 25.0),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      const Text("have an account? "),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            alignment: Alignment.centerLeft,
-                            foregroundColor: Colors.black,
-                            textStyle: const TextStyle(
-                              //color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Comfortaa",
-                            )),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/loginScreen');
-                        },
-                        child: const Text("log in"),
-                      ),
-                    ]),
+                    _buildLoginButton(context),
                   ],
                 ),
               ),
@@ -116,6 +91,29 @@ class SignInScreen extends ConsumerWidget {
     );
   }
 
+  Widget _buildLoginButton(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      const Text("have an account? "),
+      TextButton(
+        style: TextButton.styleFrom(
+            minimumSize: Size.zero,
+            padding: EdgeInsets.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            alignment: Alignment.centerLeft,
+            foregroundColor: Colors.black,
+            textStyle: const TextStyle(
+              //color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Comfortaa",
+            )),
+        onPressed: () {
+          Navigator.of(context).pushNamed('/loginScreen');
+        },
+        child: const Text("log in"),
+      ),
+    ]);
+  }
+
   Widget _buildFacebookSignInButtons(WidgetRef ref) {
     return SignInButton(
       icon: PhosphorIcons.facebookLogo,
@@ -124,7 +122,6 @@ class SignInScreen extends ConsumerWidget {
     );
   }
 
-  //TODO buildcontext and project parameters?
   Widget _buildGoogleSignInButtons(WidgetRef ref) {
     return SignInButton(
       icon: PhosphorIcons.googleLogo,
@@ -140,8 +137,6 @@ class SignInScreen extends ConsumerWidget {
       onPressed: () => _signInAnonymously(context, ref),
     );
   }
-
-//TODO: finish refactoring
 
   Widget _buildLogo() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: const [

@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/projectTest.dart';
-import 'package:project/screens/project/edit_project_screen.dart';
 import 'package:project/services/providers.dart';
-import 'package:project/static_data/example_data.dart';
 import 'package:project/widgets/appbar_button.dart';
-import 'package:project/widgets/project_card.dart';
 import 'package:project/widgets/project_card_test.dart';
 import 'package:project/widgets/search_bar.dart';
-import '../../models/project.dart';
+import '../project_screen.dart';
 
 /// Screen/Scaffold for the overview of projects the user have access to.
 class ProjectOverviewScreen extends ConsumerWidget {
@@ -22,8 +19,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Project> projects = ExampleData.projects;
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -93,7 +88,9 @@ class ProjectOverviewScreen extends ConsumerWidget {
                       project: project,
 
                       //TODO denne skal egentlig vise project screen
-                      onTap: () => EditProjectScreen.show(context, project),
+
+                      // onTap: () => EditProjectScreen.show(context, project),
+                      onTap: () => ProjectScreen.show(context, project),
                     ))
                 .toList();
 

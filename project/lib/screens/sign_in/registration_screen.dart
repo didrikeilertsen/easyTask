@@ -134,7 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return ElevatedButton(
       key: const Key("submit_button"),
       onPressed: buttonEnabled ? _submitForm : null,
-      child: const Text("Submit"),
+      child: const Text("Register"),
     );
   }
 
