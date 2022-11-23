@@ -1,5 +1,6 @@
 import 'package:project/services/api_path.dart';
 import '../models/project.dart';
+import '../models/task.dart';
 import 'firestore_service.dart';
 
 class Database {
@@ -16,6 +17,8 @@ class Database {
         //data to write to firebase
         data: project.toMap(),
       );
+
+
 
   ///Removes a given Project from the database
   Future<void> removeProject(Project project) => _service.removeData(
@@ -49,12 +52,13 @@ class Database {
         data: project.toMap(),
       );
 
-  Future<void> addTask(Project project, String task) async {
+
+  //TODO: delete this or figure out a better way to add tasks
+  Future<void> addTask(Project project) async {
+  // Future<void> addTask(Project project, String taskName) async {
+
     //add the task to list of tasks in the project object
-
-    //project.addTask(task);
-
-    //add the new project object to the database
+    // project.addTask(taskName);
 
     _service.setData(
       //path we will write to in the firebase
@@ -63,25 +67,6 @@ class Database {
       data: project.toMap(),
     );
   }
-
-  // Future<void> addTask(ProjectTest project, String task) async {
-  //   project.addTask(task);
-  //   return updateList(project);
-  // }
-
-  // @override
-  // Future<void> updateList(ProjectTest project) =>
-  //     _updateDocument(APIPath.project(uid, project.title), project.toMap());
-  //
-  //
-  //
-  //
-  //
-  // Future<void> _updateDocument(String path, Map<String, dynamic> data) async {
-  //   print("Updating $path ");
-  //   final documentReference = FirebaseFirestore.instance.doc(path);
-  //   await documentReference.set(data);
-  // }
 
   ///Creates a stream that listens to projects
   Stream<List<Project>> projectsStream() => _service.collectionStream(

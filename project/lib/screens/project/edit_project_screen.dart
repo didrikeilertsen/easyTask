@@ -29,7 +29,6 @@ class EditProjectScreen extends ConsumerStatefulWidget {
 
 class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
   final _formKey = GlobalKey<FormState>();
-
   String _title = "";
   String _description = "";
 
@@ -53,24 +52,22 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     return false;
   }
 
-
   Future<void> _submit() async {
     final database = ref.watch(databaseProvider);
     if (_validateAndSaveForm()) {
       try {
-
         final project = Project(title: _title, description: _description);
 
         if (widget.project != null) {
           //remove the previous project and add a new one.
-          // This is done instead of updating so the document name changes too
+          //this is done instead of updating so the document name changes too
           database.removeProject(widget.project!);
           database.createProject(project);
-
           ProjectScreen.show(context, project);
         } else {
 
-          //TODO: stretch-goal
+
+          //TODO: stretch-goal - only create new project if no project has same name. when deleting a project we use project name, so we could delete both if this is not implemented
           // final projects = await database.projectsStream().first;
           // final allTitles = projects.map((project) => project.title).toList();
           // if (allTitles.contains(_title)) {
@@ -126,7 +123,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
         //validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _title = value!,
       ),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       TextFormField(
         decoration: const InputDecoration(labelText: 'description (optional)'),
         initialValue: _description,
