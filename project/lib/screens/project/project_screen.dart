@@ -34,8 +34,9 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
         automaticallyImplyLeading: false,
         title: Text(widget.project.title),
         leading: AppBarButton(
-          handler: () => Navigator.of(context).pop(),
-          tooltip: "Go back",
+          //handler: () => Navigator.of(context).pop(),
+          handler: () => Navigator.of(context).pushNamed('/projects'),
+        tooltip: "Go back",
           icon: PhosphorIcons.caretLeftLight,
           color: Colors.black,
         ),
@@ -73,13 +74,12 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/editTask');
+                    Navigator.of(context).pushNamed('/editTask', arguments: widget.project);
                   },
                   child: const Text("add task")),
               Text(widget.project.description),
               const SizedBox(height: 150,),
               const Center(child: Text("No tasks added")),
-
             ],
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
+import 'package:project/screens/project/project_screen.dart';
 import 'package:project/widgets/appbar_button.dart';
 
 import '../../services/providers.dart';
@@ -52,23 +53,24 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     return false;
   }
 
-  //TODO: need to seperate edit project screen and create project screen. This method doesnt update a project, it creates a new one
+
   Future<void> _submit() async {
     final database = ref.watch(databaseProvider);
     if (_validateAndSaveForm()) {
       try {
+
         final project = Project(title: _title, description: _description);
+
         if (widget.project != null) {
           //remove the previous project and add a new one.
           // This is done instead of updating so the document name changes too
           database.removeProject(widget.project!);
           database.createProject(project);
 
-          //TODO: need to get project info to update when popping back
-          Navigator.of(context).pop();
+          ProjectScreen.show(context, project);
         } else {
 
-
+          //TODO: stretch-goal
           // final projects = await database.projectsStream().first;
           // final allTitles = projects.map((project) => project.title).toList();
           // if (allTitles.contains(_title)) {
