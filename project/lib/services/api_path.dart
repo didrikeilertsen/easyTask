@@ -6,5 +6,6 @@ class APIPath {
   static String task(String uid, String projectId, String taskId) => '/users/$uid/projects/$projectId/tasks/$taskId';
 
   static String projects(String uid) => '/users/$uid/projects';
+  static String tasks(String uid, String projectId) => '/users/$uid/projects/$projectId/tasks';
 
 }

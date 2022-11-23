@@ -20,10 +20,9 @@ class RouteGenerator {
 
         //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
 
-
     switch (settings.name) {
+
       case '/landingScreen':
-        //TODO: this has to be changed
         return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
 
       case '/registrationScreen':
@@ -33,30 +32,33 @@ class RouteGenerator {
       case '/loginScreen':
         return MaterialPageRoute(builder: (_) => LogInScreen(auth: Auth()));
 
-      case '/tasks':
-        return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
+      case '/projects':
+        return MaterialPageRoute(builder: (_) => const ProjectOverviewScreen());
 
       case '/editProject':
         return MaterialPageRoute(builder: (_) => const EditProjectScreen(null));
 
-      case '/projects':
-        return MaterialPageRoute(builder: (_) => const ProjectOverviewScreen());
-
       case '/task':
         return MaterialPageRoute(builder: (_) => const TaskDetailScreen());
 
-      case '/project/calendar':
-        return MaterialPageRoute(builder: (_) => const ProjectCalendarScreen());
+      case '/tasks':
+        return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
+
+
 
       case '/editTask':
         // Validation of correct data type
         if (args is Project) {
           return MaterialPageRoute(
               builder: (_) => EditTaskScreen(project: args));
+        } else {
+          // If args is not of the correct type, return an error page.
+          return _errorRoute();
         }
 
-        // If args is not of the correct type, return an error page.
-        return _errorRoute();
+      case '/project/calendar':
+        return MaterialPageRoute(builder: (_) => const ProjectCalendarScreen());
+
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

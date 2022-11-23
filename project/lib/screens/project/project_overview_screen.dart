@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/services/providers.dart';
 import 'package:project/widgets/appbar_button.dart';
-import 'package:project/widgets/project_card_test.dart';
+import 'package:project/widgets/project_card.dart';
 import 'package:project/widgets/search_bar.dart';
 import 'project_screen.dart';
 
@@ -59,12 +59,8 @@ class ProjectOverviewScreen extends ConsumerWidget {
           if (snapshot.hasData) {
             final projects = snapshot.data;
             final children = projects!
-                .map((project) => ProjectCardTest(
+                .map((project) => ProjectCard(
                       project: project,
-
-                      //TODO denne skal egentlig vise project screen
-
-                      // onTap: () => EditProjectScreen.show(context, project),
                       onTap: () => ProjectScreen.show(context, project),
                     ))
                 .toList();

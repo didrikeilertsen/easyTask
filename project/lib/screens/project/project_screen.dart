@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/widgets/appbar_button.dart';
+import 'package:project/widgets/task_card.dart';
+import '../../models/task.dart';
+import '../../services/providers.dart';
 import '../../widgets/search_bar.dart';
 import 'edit_project_screen.dart';
 
@@ -29,61 +32,125 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: Text(widget.project.title),
-        leading: AppBarButton(
-          //handler: () => Navigator.of(context).pop(),
-          handler: () => Navigator.of(context).pushNamed('/projects'),
-        tooltip: "Go back",
-          icon: PhosphorIcons.caretLeftLight,
-          color: Colors.black,
-        ),
-        actions: [
-          AppBarButton(
-            handler: () {EditProjectScreen.show(context, widget.project);},
-            tooltip: "Edit the current project",
-            icon: PhosphorIcons.pencilSimpleLight,
+      appBar: _buildAppBar(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SearchBar(
+            placeholderText: "search for project",
+            searchFunction: () {},
+            textEditingController: TextEditingController(),
+            filterModal: const SizedBox(),
           ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("description: ${widget.project.description}"),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed('/editTask', arguments: widget.project);
+                    },
+                    child: const Text("add task")),
+              ],
+            ),
+          ),
+          _buildContent(context),
         ],
       ),
-      body: Column(children: [
-        SearchBar(
-          placeholderText: "search for project",
-          searchFunction: () {},
-          textEditingController: TextEditingController(),
-          filterModal: const SizedBox(),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 10),
-        ),
-        _buildContent(context),
-      ]),
     );
   }
 
   Widget _buildContent(BuildContext context) {
-    return SingleChildScrollView(
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/editTask', arguments: widget.project);
-                  },
-                  child: const Text("add task")),
-              Text(widget.project.description),
-              const SizedBox(height: 150,),
-              const Center(child: Text("No tasks added")),
-            ],
-          ),
-        ),
+    final database = ref.watch(databaseProvider);
+    return StreamBuilder<List<Task>>(
+        stream: database.tasksStream(widget.project),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.isEmpty) {
+              return Column(
+                children: const [
+                  SizedBox(height: 230),
+                  Center(child: Text("No tasks added yet")),
+                ],
+              );
+            }
+
+            final tasks = snapshot.data;
+            final children = tasks!
+                .map((task) => TaskCard(
+                      task: task,
+
+                      // onTap: () => EditProjectScreen.show(context, project),
+                      //onTap: () => ProjectScreen.show(context, project),
+                      onTap: () {},
+                    ))
+                .toList();
+
+            return Expanded(
+              child: SingleChildScrollView(
+                //TODO når man scroller helt opp eller ned så starter en update. sjekk om dette gjør noe eller fjern det
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: children),
+                  ),
+                ),
+              ),
+            );
+          }
+
+          if (!snapshot.hasData) {
+            return Column(
+              children: const [
+                SizedBox(height: 230),
+                Center(child: Text("No tasks added yet")),
+              ],
+            );
+          }
+
+          if (snapshot.hasError) {
+            return const Center(child: Text("Some error occurred"));
+          }
+
+          return const Center(
+              child: SizedBox(
+            height: 40,
+            width: 40,
+            child: CircularProgressIndicator(),
+          ));
+        });
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      centerTitle: true,
+      automaticallyImplyLeading: false,
+      title: Text(widget.project.title),
+      leading: AppBarButton(
+        //handler: () => Navigator.of(context).pop(),
+        handler: () => Navigator.of(context).pushNamed('/projects'),
+        tooltip: "Go back",
+        icon: PhosphorIcons.caretLeftLight,
+        color: Colors.black,
       ),
+      actions: [
+        AppBarButton(
+          handler: () {
+            EditProjectScreen.show(context, widget.project);
+          },
+          tooltip: "Edit the current project",
+          icon: PhosphorIcons.pencilSimpleLight,
+        ),
+      ],
     );
   }
 }

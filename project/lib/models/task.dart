@@ -1,6 +1,3 @@
-import 'package:project/models/tag.dart';
-
-import 'comment.dart';
 
 /// Represents a task in a project.
 class Task {
@@ -13,22 +10,36 @@ class Task {
   // Whether or not the task has been completed.
   bool done;
 
+  //TODO: stretch-goal
   // The (optional) deadline of the task.
-  String? deadline;
+  //String? deadline;
 
-  // List of comments of this task.
-  List<Comment> comments;
-
-  Task(
-      {this.title = "task title",
-        this.description = "task description",
-        this.done = false,
-        this.deadline,
-        this.comments = const []});
+  Task({
+    this.title = "task title",
+    this.description = "task description",
+    this.done = false,
+    // this.deadline
+  });
 
   /// Returns the data content of the task as a dynamic list.
   List<dynamic> values() {
-    return [title, description, done, deadline];
+    return [
+      title, description, done,
+      // deadline
+    ];
+  }
+
+  factory Task.fromMap(Map<String, dynamic> data) {
+    final String title = data["title"];
+    final String description = data["description"];
+    //final String deadline = (data["deadline"]);
+    final bool done = (data["done"]);
+    return Task(
+      title: title,
+      description: description,
+      // deadline: deadline,
+      done: done,
+    );
   }
 
   /// Returns the data content of the task as a map.
@@ -37,8 +48,7 @@ class Task {
       "title": title,
       "description": description,
       "done": done,
-      "deadline": deadline,
-      "comments": comments
+      // "deadline": deadline,
     };
   }
 }
