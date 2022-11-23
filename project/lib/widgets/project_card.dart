@@ -12,6 +12,7 @@ class ProjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(project.title),
+      subtitle: Text(project.description),
       onTap: onTap,
       trailing: const Icon(Icons.chevron_right),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
+import 'package:project/screens/task/edit_task_screen.dart';
 import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/task_card.dart';
 import '../../models/task.dart';
@@ -85,10 +86,7 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
             final children = tasks!
                 .map((task) => TaskCard(
                       task: task,
-
-                      // onTap: () => EditProjectScreen.show(context, project),
-                      //onTap: () => ProjectScreen.show(context, project),
-                      onTap: () {},
+                      onTap: () => EditTaskScreen.show(context, widget.project),
                     ))
                 .toList();
 
@@ -137,7 +135,7 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
       title: Text(widget.project.title),
       leading: AppBarButton(
         //handler: () => Navigator.of(context).pop(),
-        handler: () => Navigator.of(context).pushNamed('/projects'),
+        handler: () => Navigator.of(context).pushNamed('/landingScreen'),
         tooltip: "Go back",
         icon: PhosphorIcons.caretLeftLight,
         color: Colors.black,

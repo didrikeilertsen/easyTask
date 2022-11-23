@@ -5,15 +5,19 @@ class Project {
   // The description of the project.
   String description;
 
+  String id;
+
   Project({
     this.title = "project title",
     this.description = "project description",
+    this.id = "id"
   });
 
-  factory Project.fromMap(Map<String, dynamic> data) {
+  factory Project.fromMap(Map<String, dynamic> data, String documentId) {
     final String title = data["title"];
     final String description = data["description"];
     return Project(
+      id : documentId,
       title: title,
       description: description,
     );

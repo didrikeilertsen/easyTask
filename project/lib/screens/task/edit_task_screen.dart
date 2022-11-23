@@ -3,41 +3,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
-import 'package:project/screens/project/project_screen.dart';
 import 'package:project/widgets/appbar_button.dart';
-
+import '../../models/task.dart';
 import '../../services/providers.dart';
 
 /// Screen/Scaffold for creating a new projext.
-class EditProjectScreen extends ConsumerStatefulWidget {
-  const EditProjectScreen(this.project, {Key? key}) : super(key: key);
+class EditTaskScreen extends ConsumerStatefulWidget {
+  const EditTaskScreen({Key? key, required this.project, this.task})
+      : super(key: key);
 
-  final Project? project;
+  final Task? task;
+  final Project project;
 
   static Future<void> show(BuildContext context, Project project) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EditProjectScreen(project),
+        builder: (context) => EditTaskScreen(project: project),
         fullscreenDialog: true,
       ),
     );
   }
 
   @override
-  EditProjectScreenState createState() => EditProjectScreenState();
+  EditTaskScreenState createState() => EditTaskScreenState();
 }
 
-class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
+class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
   final _formKey = GlobalKey<FormState>();
+
   String _title = "";
   String _description = "";
+  // String _deadline= "";
 
   @override
   void initState() {
     super.initState();
-    if (widget.project != null) {
-      _title = widget.project!.title;
-      _description = widget.project!.description;
+    if (widget.task != null) {
+      _title = widget.task!.title;
+      _description = widget.task!.description;
+      //_deadline = widget.task!.deadline;
     }
   }
 
@@ -56,23 +60,35 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     final database = ref.watch(databaseProvider);
     if (_validateAndSaveForm()) {
       try {
-        final projects = await database.projectsStream().first;
-        final allTitles = projects.map((project) => project.title).toList();
-        if (widget.project != null) {
-          allTitles.remove(widget.project!.title);
-        }
-        if (allTitles.contains(_title)) {
-          if (mounted) {
-            _onAlertButtonPressed1(context);
-          }
-         } else {
-          final id = widget.project?.id ?? database.documentIdFromCurrentDate();
-          final project =
-              Project(id: id, title: _title, description: _description);
-          await database.setProject(project);
-          if (mounted) {
-            ProjectScreen.show(context, project);}
-        }
+
+        final task = Task(title: _title, description: _description);
+
+        database.addTask(widget.project, task);
+
+
+
+
+
+        // List<String> tasks = widget.project.tasks;
+        //
+        // tasks.add(task.title);
+        //
+        // Project project = Project(
+        //   title: widget.project.title,
+        //   description: widget.project.description,
+        //   tasks: tasks,
+        // );
+        //
+        // database.removeProject(widget.project);
+        // database.createProject(project);
+        // ProjectScreen.show(context, project);
+
+        // TODO: stretch-goal: add deadline to tasks
+        // if(task.deadline != null) {
+        //   final task = Task(title: _title, description: _description, deadline: _deadline);
+        // }
+
+        Navigator.of(context).pop();
       } on FirebaseException catch (e) {
         const AlertDialog(
           title: Text('Operation failed'),
@@ -81,22 +97,40 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     }
   }
 
-  _onAlertButtonPressed1(context) {
-    AlertDialog alert = const AlertDialog(
-      title: Text('Name already used'),
-      content: Text('Please choose a different project name'),
-      actions: [
-        //TODO: add button
-        Text("Ok")
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  // Future<void> _submit() async {
+  //   final database = ref.watch(databaseProvider);
+  //   if (_validateAndSaveForm()) {
+  //     try {
+  //
+  //       final task = Task(title: _title, description: _description);
+  //
+  //       List<String> tasks = widget.project.tasks;
+  //
+  //       tasks.add(task.title);
+  //
+  //       Project project = Project(
+  //         title: widget.project.title,
+  //         description: widget.project.description,
+  //         tasks: tasks,
+  //       );
+  //
+  //       database.removeProject(widget.project);
+  //       database.createProject(project);
+  //       ProjectScreen.show(context, project);
+  //
+  //       // TODO: stretch-goal: add deadline to tasks
+  //       // if(task.deadline != null) {
+  //       //   final task = Task(title: _title, description: _description, deadline: _deadline);
+  //       // }
+  //
+  //       Navigator.of(context).pop();
+  //     } on FirebaseException catch (e) {
+  //       const AlertDialog(
+  //         title: Text('Operation failed'),
+  //       );
+  //     }
+  //   }
+  // }
 
   Widget _buildContents() {
     return SingleChildScrollView(
@@ -125,9 +159,12 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
-        decoration: const InputDecoration(labelText: 'project name'),
+        decoration: const InputDecoration(labelText: 'task name'),
         initialValue: _title,
+
+        //TODO: implement this is edit_task_screen and edit_project_screen
         //validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
+
         onSaved: (value) => _title = value!,
       ),
       const SizedBox(height: 10),
@@ -135,6 +172,11 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
         decoration: const InputDecoration(labelText: 'description (optional)'),
         initialValue: _description,
         onSaved: (value) => _description = value!,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(labelText: 'deadline'),
+        initialValue: _description,
+        //onSaved: (value) => _deadline = value!,
       ),
     ];
   }
@@ -144,7 +186,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text(widget.project == null ? 'new project' : 'edit project'),
+        title: Text(widget.task == null ? 'new task' : 'edit task'),
         centerTitle: false,
         titleSpacing: -4,
         leading: AppBarButton(

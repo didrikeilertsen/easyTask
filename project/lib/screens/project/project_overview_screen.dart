@@ -35,7 +35,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
           )
         ],
       ),
-
       body: Column(children: [
         SearchBar(
           placeholderText: "search for project",
@@ -84,11 +83,12 @@ class ProjectOverviewScreen extends ConsumerWidget {
 
           if (!snapshot.hasData) {
             return Column(
-
               children: const [
                 SizedBox(height: 230),
                 Center(child: Text("No projects added yet")),
-                Center(child: Text("Press the + symbol to add your first project")),
+                Center(
+                    child:
+                        Text("Press the + symbol to add your first project")),
               ],
             );
           }
@@ -96,12 +96,13 @@ class ProjectOverviewScreen extends ConsumerWidget {
           if (snapshot.hasError) {
             return const Center(child: Text("Some error occurred"));
           }
+
           return const Center(
               child: SizedBox(
-                height: 40,
-                  width: 40,
-              child: CircularProgressIndicator(),
-              ));
+            height: 40,
+            width: 40,
+            child: CircularProgressIndicator(),
+          ));
         });
   }
 }
