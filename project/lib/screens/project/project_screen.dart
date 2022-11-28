@@ -49,7 +49,6 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
             placeholderText: "search for task",
             searchFunction: () {},
             textEditingController: TextEditingController(),
-            filterModal: const SizedBox(),
           ),
           const Padding(
             padding: EdgeInsets.only(top: 10),

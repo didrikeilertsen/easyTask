@@ -38,7 +38,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
           placeholderText: "search for project",
           searchFunction: () {},
           textEditingController: TextEditingController(),
-          filterModal: const SizedBox(),
         ),
         const Padding(
           padding: EdgeInsets.only(top: 10),

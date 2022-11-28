@@ -12,16 +12,12 @@ class SearchBar extends StatefulWidget {
   /// [searchFunction] - the function used for filtering the list.
   final Function searchFunction;
 
-  /// [filterModal] - the modal window showing filtering options.
-  final Widget filterModal;
-
   /// Creates an instance of search bar.
   const SearchBar(
       {super.key,
       required this.placeholderText,
       required this.searchFunction,
-      required this.textEditingController,
-      required this.filterModal});
+      required this.textEditingController});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -48,25 +44,6 @@ class _SearchBarState extends State<SearchBar> {
                 hintText: widget.placeholderText.toLowerCase(),
               ),
             ),
-          ),
-        ),
-        IconButton(
-          onPressed: () {
-            showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
-                ),
-              ),
-              context: context,
-              builder: (context) {
-                return widget.filterModal;
-              },
-            );
-          },
-          icon: const Icon(
-            PhosphorIcons.fadersHorizontal,
           ),
         ),
       ],

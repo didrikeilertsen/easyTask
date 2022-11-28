@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ///A Firebase authentication service
@@ -10,9 +9,6 @@ class Auth {
   final _googleSignIn = GoogleSignIn();
 
   final _fb = FacebookLogin();
-
-  //TODO: denne er vel ikke nødvendig mtp at jeg hører på streamen i landing_screen
-  Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
   User? get currentUser => _firebaseAuth.currentUser;
 
@@ -85,7 +81,6 @@ class Auth {
 
   Future<void> signOut() async {
     await _googleSignIn.signOut();
-    //await _fb.logOut();
     await _firebaseAuth.signOut();
   }
 
@@ -103,8 +98,6 @@ class Auth {
     final userCredentials = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     print(" user info = ${userCredentials.user?.uid}");
-
-    //TODO: add username if provided
     return userCredentials.user;
   }
 }

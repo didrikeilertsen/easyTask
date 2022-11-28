@@ -196,28 +196,6 @@ class _TaskOverviewBodyState extends State<TaskOverviewBody> {
           textEditingController: _searchController,
           searchFunction: filterSearchResults,
           placeholderText: "Search for tasks",
-          filterModal: FilterModal(
-            modalTitle: "Sort and filter tasks",
-            filters: [
-              Filter(
-                title: "sort by",
-                filterOptions: [
-                  FilterOption(description: SortingMethods.dateDesc, filterBy: false),
-                  FilterOption(description: SortingMethods.dateAsc, filterBy: false),
-                  FilterOption(description: SortingMethods.titleDesc, filterBy: false),
-                  FilterOption(description: SortingMethods.titleAsc, filterBy: false),
-                ],
-                filterHandler: onSortChange,
-                filterType: FilterType.sort,
-              ),
-              Filter(
-                title: "tags",
-                filterOptions: _buildTagFilterOptions(project),
-                filterHandler: filterByTags,
-                filterType: FilterType.tag
-              ),
-            ],
-          ),
         ),
         TaskList(
           tasks: items,

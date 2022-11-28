@@ -2,19 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/services/auth.dart';
+
 import 'package:project/widgets/appbar_button.dart';
 
 import '../../services/providers.dart';
 
 /// Screen/Scaffold for the profile of the user.
-class ProfileScreen extends ConsumerWidget {
-  const ProfileScreen({super.key});
+class EditProfileScreen extends ConsumerWidget {
+  const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     final auth = ref.read(authenticationProvider);
     final database = ref.read(databaseProvider);
+
 
     return Scaffold(
       appBar: AppBar(
@@ -26,39 +29,26 @@ class ProfileScreen extends ConsumerWidget {
         child: Column(
           children: [
             const SizedBox(height: 100),
+            Image.asset(
+              "assets/images/profile_pictuer_placeholder.png",
+              height: 200,
+            ),
 
 
-            //TODO: stretch-goal
-            // Image.asset(
-            //   "assets/images/profile_pictuer_placeholder.png",
-            //   height: 200,
-            // ),
 
             const Text("email:", style: TextStyle(fontWeight: FontWeight.bold)),
             Text(auth.currentUser!.email.toString()),
-            Text("phone number:${auth.currentUser!.phoneNumber}"),
 
-            const Text("username:",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text("username:", style: TextStyle(fontWeight: FontWeight.bold)),
             _buildUsername(ref),
+            const SizedBox(height: 10,),
 
 
-            const SizedBox(height: 30),
-
+            const Text("edit profile"),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/editProfile');
-              },
+              onPressed: () {},
               child: const Text(
                 "edit profile",
-                style: TextStyle(color: Colors.black87),
-              ),
-            ),
-
-            TextButton(
-              onPressed: () => _signOut(ref),
-              child: const Text(
-                "log out",
                 style: TextStyle(color: Colors.black87),
               ),
             ),
@@ -68,12 +58,16 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
+
+
   //TODO: bug - doesnt update displayname when user registers for first time
   Widget _buildUsername(WidgetRef ref) {
+
     _updateUsername(ref);
     final auth = ref.read(authenticationProvider);
 
-    return (Text(auth.currentUser!.displayName.toString()));
+    return(
+        Text(auth.currentUser!.displayName.toString()));
   }
 
   void _updateUsername(WidgetRef ref) async {
@@ -84,7 +78,9 @@ class ProfileScreen extends ConsumerWidget {
     // `currentUser` is synchronous since FirebaseAuth rework
     User? user2 = auth.currentUser;
     print(user2?.displayName);
+
   }
+
 
   Future<void> _signOut(WidgetRef ref) async {
     final auth = ref.read(authenticationProvider);

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:project/services/auth.dart';
 import 'package:project/widgets/sign_in_button.dart';
 import 'package:project/widgets/sign_up_button.dart';
 import '../../main.dart';
@@ -54,13 +53,6 @@ class SignInScreen extends ConsumerWidget {
                   children: <Widget>[
                     _buildLogo(),
                     const SizedBox(height: 80.0),
-                    Consumer(builder: (context, ref, child) {
-                      final number = ref.watch(numberProvider);
-                      return Text(
-                        number.toString(),
-                        textAlign: TextAlign.center,
-                      );
-                    }),
                     _buildGoogleSignInButtons(ref),
                     const SizedBox(height: 15.0),
                     _buildFacebookSignInButtons(ref),
@@ -159,24 +151,8 @@ class SignInScreen extends ConsumerWidget {
     ]);
   }
 
-  Future<void> _signInWithEmailAndPassword() async {
-    try {
-      //final userCredentials =
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: "test@test.com", password: "test"
-              // email: emailController.text.trim(),
-              // password: passwordController.text.trim()
-              );
-      //print(" user info = ${userCredentials.user?.uid}");
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
   Future<void> _signInAnonymously(BuildContext context, WidgetRef ref) async {
     final auth = ref.read(authenticationProvider);
-
-    //TODO: add dialog to other signin methods
     showDialog(
         context: context,
         barrierDismissible: false,
