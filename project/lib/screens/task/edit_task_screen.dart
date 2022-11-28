@@ -7,7 +7,7 @@ import 'package:project/widgets/appbar_button.dart';
 import '../../models/task.dart';
 import '../../services/providers.dart';
 
-/// Screen/Scaffold for creating a new projext.
+/// Screen for creating or editing a  task.
 class EditTaskScreen extends ConsumerStatefulWidget {
   const EditTaskScreen({Key? key, required this.project, this.task})
       : super(key: key);
@@ -15,10 +15,10 @@ class EditTaskScreen extends ConsumerStatefulWidget {
   final Task? task;
   final Project project;
 
-  static Future<void> show(BuildContext context, Project project) async {
+  static Future<void> show(BuildContext context, Project project, Task task) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EditTaskScreen(project: project),
+        builder: (context) => EditTaskScreen(project: project, task: task),
         fullscreenDialog: true,
       ),
     );
@@ -60,34 +60,8 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     final database = ref.watch(databaseProvider);
     if (_validateAndSaveForm()) {
       try {
-
         final task = Task(title: _title, description: _description);
-
         database.addTask(widget.project, task);
-
-
-
-
-
-        // List<String> tasks = widget.project.tasks;
-        //
-        // tasks.add(task.title);
-        //
-        // Project project = Project(
-        //   title: widget.project.title,
-        //   description: widget.project.description,
-        //   tasks: tasks,
-        // );
-        //
-        // database.removeProject(widget.project);
-        // database.createProject(project);
-        // ProjectScreen.show(context, project);
-
-        // TODO: stretch-goal: add deadline to tasks
-        // if(task.deadline != null) {
-        //   final task = Task(title: _title, description: _description, deadline: _deadline);
-        // }
-
         Navigator.of(context).pop();
       } on FirebaseException catch (e) {
         const AlertDialog(
@@ -96,41 +70,6 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
       }
     }
   }
-
-  // Future<void> _submit() async {
-  //   final database = ref.watch(databaseProvider);
-  //   if (_validateAndSaveForm()) {
-  //     try {
-  //
-  //       final task = Task(title: _title, description: _description);
-  //
-  //       List<String> tasks = widget.project.tasks;
-  //
-  //       tasks.add(task.title);
-  //
-  //       Project project = Project(
-  //         title: widget.project.title,
-  //         description: widget.project.description,
-  //         tasks: tasks,
-  //       );
-  //
-  //       database.removeProject(widget.project);
-  //       database.createProject(project);
-  //       ProjectScreen.show(context, project);
-  //
-  //       // TODO: stretch-goal: add deadline to tasks
-  //       // if(task.deadline != null) {
-  //       //   final task = Task(title: _title, description: _description, deadline: _deadline);
-  //       // }
-  //
-  //       Navigator.of(context).pop();
-  //     } on FirebaseException catch (e) {
-  //       const AlertDialog(
-  //         title: Text('Operation failed'),
-  //       );
-  //     }
-  //   }
-  // }
 
   Widget _buildContents() {
     return SingleChildScrollView(
@@ -161,10 +100,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
       TextFormField(
         decoration: const InputDecoration(labelText: 'task name'),
         initialValue: _title,
-
-        //TODO: implement this is edit_task_screen and edit_project_screen
-        //validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
-
+        validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _title = value!,
       ),
       const SizedBox(height: 10),
@@ -195,8 +131,6 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
           icon: PhosphorIcons.caretLeftLight,
           color: Colors.black,
         ),
-        // backgroundColor: Colors.white,
-        // foregroundColor: Colors.black,
         actions: <Widget>[
           ElevatedButton(
             onPressed: _submit,

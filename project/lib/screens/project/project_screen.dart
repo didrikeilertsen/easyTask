@@ -51,17 +51,24 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("description: ${widget.project.description}"),
+                //TODO: change styling and location of button
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context)
                           .pushNamed('/editTask', arguments: widget.project);
                     },
                     child: const Text("add task")),
+                const SizedBox(height: 30),
+                const Text("Tasks to complete:"),
               ],
             ),
           ),
           _buildContent(context),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("delete project")),
         ],
       ),
     );
@@ -86,20 +93,21 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
             final children = tasks!
                 .map((task) => TaskCard(
                       task: task,
-                      onTap: () => EditTaskScreen.show(context, widget.project),
+                      onTap: () =>
+                          EditTaskScreen.show(context, widget.project, task),
                     ))
                 .toList();
 
             return Expanded(
               child: SingleChildScrollView(
-                //TODO når man scroller helt opp eller ned så starter en update. sjekk om dette gjør noe eller fjern det
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: children),
+                        children: children,
+                    ),
                   ),
                 ),
               ),

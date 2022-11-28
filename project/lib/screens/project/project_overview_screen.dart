@@ -15,8 +15,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
 
   const ProjectOverviewScreen({super.key});
 
-  //todo consider making a list of project instead of project cards. description might be unnecessary
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -66,7 +64,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
 
             return Expanded(
               child: SingleChildScrollView(
-                //TODO når man scroller helt opp eller ned så starter en update. sjekk om dette gjør noe eller fjern det
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(

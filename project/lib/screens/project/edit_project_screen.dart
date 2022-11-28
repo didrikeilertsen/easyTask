@@ -8,7 +8,7 @@ import 'package:project/widgets/appbar_button.dart';
 
 import '../../services/providers.dart';
 
-/// Screen/Scaffold for creating a new projext.
+/// Screen for creating or editing a project.
 class EditProjectScreen extends ConsumerStatefulWidget {
   const EditProjectScreen(this.project, {Key? key}) : super(key: key);
 
@@ -65,13 +65,14 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
           if (mounted) {
             _onAlertButtonPressed1(context);
           }
-         } else {
+        } else {
           final id = widget.project?.id ?? database.documentIdFromCurrentDate();
           final project =
               Project(id: id, title: _title, description: _description);
           await database.setProject(project);
           if (mounted) {
-            ProjectScreen.show(context, project);}
+            ProjectScreen.show(context, project);
+          }
         }
       } on FirebaseException catch (e) {
         const AlertDialog(
@@ -82,12 +83,13 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
   }
 
   _onAlertButtonPressed1(context) {
-    AlertDialog alert = const AlertDialog(
-      title: Text('Name already used'),
-      content: Text('Please choose a different project name'),
+    AlertDialog alert = AlertDialog(
+      title: const Text('Name already used'),
+      content: const Text('Please choose a different project name'),
       actions: [
-        //TODO: add button
-        Text("Ok")
+        ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Ok"))
       ],
     );
     showDialog(
@@ -100,16 +102,41 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
 
   Widget _buildContents() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Card(
-          child: Padding(
+      child: Column(
+        children: [
+          Padding(
             padding: const EdgeInsets.all(16.0),
-            child: _buildForm(),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: _buildForm(),
+              ),
+            ),
           ),
-        ),
+          _buildDeleteButton()
+        ],
       ),
     );
+  }
+
+  Widget _buildDeleteButton() {
+    if (widget.project == null) {
+      return const SizedBox(height: 0, width: 0);
+    }
+    return TextButton(
+        onPressed: _delete,
+        child:
+            const Text(style: TextStyle(color: Colors.red), "delete project"));
+  }
+
+  Future<void> _delete() async {
+    final database = ref.watch(databaseProvider);
+
+    if (widget.project != null) {
+      database.removeProject(widget.project!);
+    }
+
+    Navigator.of(context).pushNamed("/landingScreen");
   }
 
   Widget _buildForm() {
@@ -127,7 +154,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
       TextFormField(
         decoration: const InputDecoration(labelText: 'project name'),
         initialValue: _title,
-        //validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
+        validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _title = value!,
       ),
       const SizedBox(height: 10),
@@ -153,8 +180,6 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
           icon: PhosphorIcons.caretLeftLight,
           color: Colors.black,
         ),
-        // backgroundColor: Colors.white,
-        // foregroundColor: Colors.black,
         actions: <Widget>[
           ElevatedButton(
             onPressed: _submit,

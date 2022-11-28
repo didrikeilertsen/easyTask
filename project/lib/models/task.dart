@@ -14,11 +14,15 @@ class Task {
   // The (optional) deadline of the task.
   //String? deadline;
 
+
+  String id;
+
   Task({
     this.title = "task title",
     this.description = "task description",
     this.done = false,
     // this.deadline
+    this.id = "id",
   });
 
   /// Returns the data content of the task as a dynamic list.
@@ -29,12 +33,13 @@ class Task {
     ];
   }
 
-  factory Task.fromMap(Map<String, dynamic> data) {
+  factory Task.fromMap(Map<String, dynamic> data, String documentId) {
     final String title = data["title"];
     final String description = data["description"];
     //final String deadline = (data["deadline"]);
     final bool done = (data["done"]);
     return Task(
+      id: documentId,
       title: title,
       description: description,
       // deadline: deadline,

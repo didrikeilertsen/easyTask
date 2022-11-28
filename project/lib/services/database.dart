@@ -6,7 +6,6 @@ import 'firestore_service.dart';
 class Database {
   Database({required this.uid});
 
-//TODO: dette kan hentes fra en provider
   final String uid;
   final _service = FirestoreService.instance;
 
@@ -22,9 +21,9 @@ class Database {
 
   ///Removes a given Project from the database
   Future<void> removeProject(Project project) => _service.removeData(
-    //path we will remove in the firebase
-    path: APIPath.project(uid, project.title),
-  );
+        //path we will remove in the firebase
+        path: APIPath.project(uid, project.id),
+      );
 
   ///Adds or updates a given Task-object to the database
   Future<void> addTask(Project project, Task task) => _service.setData(
@@ -47,23 +46,4 @@ class Database {
         path: APIPath.tasks(uid, project.id),
         builder: (data, documentId) => Task.fromMap(data, documentId),
       );
-
-// ///Updates a given Project in the database
-//   Stream<List<Task>> taskStream(Project project, Map<String, dynamic> data) =>
-//     _service.updateData(
-//       //path in firebase
-//       path: APIPath.project(uid, project.title),
-//       //data to write to firebase
-//       data: data,
-//     );
-
-//TODO: delete this method or figure out the best to update data
-// ///Updates a given Project in the database
-// Future<void> updateProject(Project project, Map<String, dynamic> data) =>
-//     _service.updateData(
-//       //path in firebase
-//       path: APIPath.project(uid, project.title),
-//       //data to write to firebase
-//       data: data,
-//     );
 }
