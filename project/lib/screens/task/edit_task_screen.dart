@@ -73,14 +73,19 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
 
   Widget _buildContents() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Card(
-          child: Padding(
+      child: Column(
+        children: [
+          Padding(
             padding: const EdgeInsets.all(16.0),
-            child: _buildForm(),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: _buildForm(),
+              ),
+            ),
           ),
-        ),
+          _buildDeleteButton()
+        ],
       ),
     );
   }
@@ -115,6 +120,24 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
         //onSaved: (value) => _deadline = value!,
       ),
     ];
+  }
+
+  Widget _buildDeleteButton() {
+    if (widget.task == null) {
+      return const SizedBox(height: 0, width: 0);
+    }
+    return TextButton(
+        onPressed: _delete,
+        child:
+        const Text(style: TextStyle(color: Colors.red), "delete task"));
+  }
+
+  Future<void> _delete() async {
+    final database = ref.watch(databaseProvider);
+    if (widget.task != null) {
+      database.removeTask(widget.project, widget.task!);
+    }
+    Navigator.of(context).pop();
   }
 
   @override

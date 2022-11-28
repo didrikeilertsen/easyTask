@@ -4,6 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/screens/task/edit_task_screen.dart';
 import 'package:project/widgets/appbar_button.dart';
+import 'package:project/widgets/input_field.dart';
 import 'package:project/widgets/task_card.dart';
 import '../../models/task.dart';
 import '../../services/providers.dart';
@@ -33,12 +34,20 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: _buildAppBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed('/editTask', arguments: widget.project);
+        },
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SearchBar(
-            placeholderText: "search for project",
+            placeholderText: "search for task",
             searchFunction: () {},
             textEditingController: TextEditingController(),
             filterModal: const SizedBox(),
@@ -46,29 +55,7 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
           const Padding(
             padding: EdgeInsets.only(top: 10),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //TODO: change styling and location of button
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed('/editTask', arguments: widget.project);
-                    },
-                    child: const Text("add task")),
-                const SizedBox(height: 30),
-                const Text("Tasks to complete:"),
-              ],
-            ),
-          ),
           _buildContent(context),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("delete project")),
         ],
       ),
     );
@@ -88,7 +75,6 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
                 ],
               );
             }
-
             final tasks = snapshot.data;
             final children = tasks!
                 .map((task) => TaskCard(
@@ -105,9 +91,9 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: children,
-                    ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: children,
+                    )
                   ),
                 ),
               ),

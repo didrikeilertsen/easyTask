@@ -28,12 +28,17 @@ class Database {
   ///Adds or updates a given Task-object to the database
   Future<void> addTask(Project project, Task task) => _service.setData(
         //path we will write to in the firebase
-
-        //TODO: task id here?
         path: APIPath.task(uid, project.id, task.title),
         //data to write to firebase
         data: task.toMap(),
       );
+
+  ///Removes a given Task-object to the database
+  Future<void> removeTask(Project project, Task task) => _service.removeData(
+    //path we will remove in the firebase
+    path: APIPath.task(uid, project.id, task.title),
+  );
+
 
   ///Creates a stream that listens to projects
   Stream<List<Project>> projectsStream() => _service.collectionStream(

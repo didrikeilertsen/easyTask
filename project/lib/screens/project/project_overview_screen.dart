@@ -18,6 +18,7 @@ class ProjectOverviewScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
