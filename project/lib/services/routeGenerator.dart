@@ -12,16 +12,16 @@ import 'package:project/screens/task/task_overview_screen.dart';
 import 'package:project/services/auth.dart';
 
 import '../models/project.dart';
+import '../screens/profile/edit_profile_screen.dart';
 
 ///This class separates the routing logic for the entire application
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
-        //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
+    //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
 
     switch (settings.name) {
-
       case '/landingScreen':
         return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
 
@@ -44,7 +44,8 @@ class RouteGenerator {
       case '/tasks':
         return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
 
-
+      case '/editProfile':
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
 
       case '/editTask':
         // Validation of correct data type

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/services/auth.dart';
 import 'package:string_validator/string_validator.dart';
@@ -64,17 +65,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     if (_isFormValid()) {
       try {
-        await widget.auth.createUserWithEmailAndPassword(_email, _password);
-      } catch (e) {
-        print(e.toString());
-      }
-
-      try {
+        User? user = await widget.auth.createUserWithEmailAndPassword(_email, _password);
         if (_username.isNotEmpty) {
-          //TODO: add username to database
+          if (user != null){
+           await user.updateDisplayName(_username);
+          }
         }
       } catch (e) {
-      } finally {
+        print(e.toString());
+      } if (mounted){
         Navigator.of(context).pop();
       }
     }

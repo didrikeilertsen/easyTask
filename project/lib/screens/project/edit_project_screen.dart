@@ -125,8 +125,16 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     }
     return TextButton(
         onPressed: _delete,
-        child:
-            const Text(style: TextStyle(color: Colors.red), "delete project"));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+            Text(style: TextStyle(color: Colors.red), "delete task"),
+          ],
+        ));
   }
 
   Future<void> _delete() async {

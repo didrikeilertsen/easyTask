@@ -13,10 +13,8 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-
     final auth = ref.read(authenticationProvider);
-
+    final database = ref.read(databaseProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,16 +38,32 @@ class ProfileScreen extends ConsumerWidget {
               height: 200,
             ),
 
-            //TODO: get info from user
-            const Text("edit profile"),
-            const Text("app settings"),
-            const Text("app info"),
+            const Text("email:", style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(auth.currentUser!.email.toString()),
+
+            const Text("username:",
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            _buildUsername(ref),
+
+
+            const SizedBox(height: 30),
+
             TextButton(
-                onPressed: () => _signOut(ref),
-                child: const Text(
-                  "log out",
-                  style: TextStyle(color: Colors.black87),
-                ),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/editProfile');
+              },
+              child: const Text(
+                "edit profile",
+                style: TextStyle(color: Colors.black87),
+              ),
+            ),
+
+            TextButton(
+              onPressed: () => _signOut(ref),
+              child: const Text(
+                "log out",
+                style: TextStyle(color: Colors.black87),
+              ),
             ),
           ],
         ),
@@ -57,12 +71,28 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _signOut(WidgetRef ref) async {
+  //TODO: bug - doesnt update displayname when user registers for first time
+  Widget _buildUsername(WidgetRef ref) {
+    _updateUsername(ref);
+    final auth = ref.read(authenticationProvider);
 
+    return (Text(auth.currentUser!.displayName.toString()));
+  }
+
+  void _updateUsername(WidgetRef ref) async {
+    final auth = ref.read(authenticationProvider);
+    User user = auth.currentUser!;
+    await user.reload();
+
+    // `currentUser` is synchronous since FirebaseAuth rework
+    User? user2 = auth.currentUser;
+    print(user2?.displayName);
+  }
+
+  Future<void> _signOut(WidgetRef ref) async {
     final auth = ref.read(authenticationProvider);
     try {
-     await auth.signOut();
-
+      await auth.signOut();
     } catch (e) {
       print(e.toString());
     } finally {

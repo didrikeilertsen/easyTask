@@ -15,7 +15,8 @@ class EditTaskScreen extends ConsumerStatefulWidget {
   final Task? task;
   final Project project;
 
-  static Future<void> show(BuildContext context, Project project, Task task) async {
+  static Future<void> show(
+      BuildContext context, Project project, Task task) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EditTaskScreen(project: project, task: task),
@@ -33,6 +34,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
 
   String _title = "";
   String _description = "";
+
   // String _deadline= "";
 
   @override
@@ -128,8 +130,16 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     }
     return TextButton(
         onPressed: _delete,
-        child:
-        const Text(style: TextStyle(color: Colors.red), "delete task"));
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+             Icon(
+                Icons.delete,
+              color: Colors.red,
+            ),
+            Text(style: TextStyle(color: Colors.red), "delete task"),
+          ],
+        ));
   }
 
   Future<void> _delete() async {

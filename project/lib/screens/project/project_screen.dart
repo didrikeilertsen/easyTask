@@ -4,7 +4,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/screens/task/edit_task_screen.dart';
 import 'package:project/widgets/appbar_button.dart';
-import 'package:project/widgets/input_field.dart';
 import 'package:project/widgets/task_card.dart';
 import '../../models/task.dart';
 import '../../services/providers.dart';

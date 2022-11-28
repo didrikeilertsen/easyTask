@@ -24,7 +24,6 @@ class ProjectOverviewScreen extends ConsumerWidget {
         automaticallyImplyLeading: false,
         title: const Text("projects", textAlign: TextAlign.center),
         actions: [
-          // TODO: Add action to button.
           AppBarButton(
             handler: () {
               Navigator.of(context).pushNamed('/editProject');
