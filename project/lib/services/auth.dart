@@ -9,7 +9,6 @@ class Auth {
 
   // final _fb = FacebookLogin();
 
-  //TODO: denne er vel ikke nødvendig mtp at jeg hører på streamen i landing_screen
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
   User? get currentUser => _firebaseAuth.currentUser;

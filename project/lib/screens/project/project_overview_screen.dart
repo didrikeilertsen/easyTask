@@ -10,9 +10,6 @@ import 'project_screen.dart';
 
 /// Screen/Scaffold for the overview of projects the user have access to.
 class ProjectOverviewScreen extends ConsumerWidget {
-  //TODO: remove this?
-  static const routeName = "/project-overview";
-
   const ProjectOverviewScreen({super.key});
 
   @override

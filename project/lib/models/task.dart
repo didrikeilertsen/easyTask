@@ -10,7 +10,7 @@ class Task {
   // Whether or not the task has been completed.
   bool done;
 
-  //TODO: stretch-goal
+  //TODO: stretch-goal  -- if not: remove deadline from ui
   // The (optional) deadline of the task.
   //String? deadline;
 
