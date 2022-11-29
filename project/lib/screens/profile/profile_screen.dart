@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project/styles/themes.dart';
 
 import '../../services/providers.dart';
 
@@ -25,17 +26,23 @@ class ProfileScreen extends ConsumerWidget {
             children: [
               const SizedBox(height: 100),
               //TODO: stretch-goal
-              //       // Image.asset(
-              //       //   "assets/images/profile_pictuer_placeholder.png",
-              //       //   height: 200,
-              //       // ),
 
-              const Text("username:",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  )),
-
+              auth.currentUser?.photoURL != null
+                  ? CircleAvatar(
+                      backgroundColor: Themes.primaryColor,
+                      radius: 115,
+                      child: CircleAvatar(
+                        radius: 110,
+                        backgroundImage:
+                            NetworkImage(auth.currentUser!.photoURL!),
+                      ),
+                    )
+                  : Image.asset(
+                      "assets/images/empty_profile_pic_large.png",
+                      height: 200,
+                      color: Themes.primaryColor,
+                    ),
+              const SizedBox(height: 70),
               StreamBuilder<User?>(
                   stream: firebase.userChanges(),
                   builder: (context, snapshot) {
@@ -43,7 +50,8 @@ class ProfileScreen extends ConsumerWidget {
                       if (snapshot.data!.displayName != null) {
                         return Text(snapshot.data!.displayName!,
                             style: const TextStyle(
-                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
                             ));
                       }
                     }
@@ -55,41 +63,57 @@ class ProfileScreen extends ConsumerWidget {
                     }
                     return const Center(child: SizedBox(height: 10));
                   }),
-              const SizedBox(
-                height: 15,
-              ),
-              const Text("email:",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-              Text(
-                auth.currentUser!.email.toString(),
-                style: const TextStyle(
-                  fontSize: 17,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text("phone number:${auth.currentUser!.phoneNumber}"),
-
-              const SizedBox(height: 30),
-
-              TextButton(
+              const SizedBox(height: 20),
+              OutlinedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/editProfile');
                 },
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  side: BorderSide(width: 1.5, color: Themes.primaryColor),
+                ),
                 child: const Text(
-                  "edit profile",
+                  'edit profile',
                   style: TextStyle(color: Colors.black87),
                 ),
               ),
 
-              TextButton(
+              OutlinedButton(
                 onPressed: () => _signOut(ref),
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  side: BorderSide(width: 1.5, color: Themes.primaryColor),
+                ),
                 child: const Text(
-                  "log out",
+                  'log out',
                   style: TextStyle(color: Colors.black87),
                 ),
               ),
+
+              // OutlinedButton(
+              //   onPressed: () {},
+              //
+              //   style: ButtonStyle(
+              //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(30.0))
+              //     ),
+              //   ),
+              //
+              //   child: const Text("edit profile"),
+              // ),
+              // OutlinedButton(
+              //   onPressed: () {},
+              //
+              //   style: ButtonStyle(
+              //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(30.0))
+              //     ),
+              //   ),
+              //
+              //   child: const Text("log out"),
+              // ),
             ],
           ),
         ));
