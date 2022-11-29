@@ -29,7 +29,6 @@ class CustomElevatedButton extends StatelessWidget {
         child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              // change fron backroungcolor to primary
               backgroundColor: color,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(

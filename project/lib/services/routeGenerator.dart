@@ -1,19 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/screens/project/edit_project_screen.dart';
 import 'package:project/screens/project/project_overview_screen.dart';
-import 'package:project/screens/project_calendar_screen.dart';
 import 'package:project/screens/sign_in/landing_screen.dart';
 import 'package:project/screens/sign_in/login_screen.dart';
 import 'package:project/screens/sign_in/registration_screen.dart';
 import 'package:project/screens/task/edit_task_screen.dart';
-import 'package:project/screens/task/task_detail_screen.dart';
-import 'package:project/screens/task/task_overview_screen.dart';
 import 'package:project/services/auth.dart';
 
 import '../models/project.dart';
 import '../screens/profile/edit_profile_screen.dart';
-import '../screens/profile/profile_screen.dart';
 
 ///This class separates the routing logic for the entire application
 class RouteGenerator {
@@ -39,12 +34,6 @@ class RouteGenerator {
       case '/editProject':
         return MaterialPageRoute(builder: (_) => const EditProjectScreen(null));
 
-      case '/task':
-        return MaterialPageRoute(builder: (_) => const TaskDetailScreen());
-
-      case '/tasks':
-        return MaterialPageRoute(builder: (_) => const TaskOverviewScreen());
-
       case '/editProfile':
         return MaterialPageRoute(builder: (_) => const EditProfileScreen());
 
@@ -57,9 +46,6 @@ class RouteGenerator {
           // If args is not of the correct type, return an error page.
           return _errorRoute();
         }
-
-      case '/project/calendar':
-        return MaterialPageRoute(builder: (_) => const ProjectCalendarScreen());
 
       default:
         // If there is no such named route in the switch statement, e.g. /third
