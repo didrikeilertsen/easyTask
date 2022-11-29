@@ -2,15 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/screens/homeScreen.dart';
 import 'package:project/screens/sign_in/sign_in_screen.dart';
-
 import '../../services/auth.dart';
-import '../../services/database.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key, required this.auth}) : super(key: key);
-
-  //const LandingScreen({Key? key, required this.auth, required this.database}) : super(key: key);
-  //final Database database;
 
   final Auth auth;
 

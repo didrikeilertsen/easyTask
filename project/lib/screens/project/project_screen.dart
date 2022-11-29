@@ -67,9 +67,14 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
               return Column(
-                children: const [
-                  SizedBox(height: 230),
-                  Center(child: Text("No tasks added yet")),
+                children: [
+                  const SizedBox(height: 230),
+                  Center(child: Column(
+                    children: const [
+                      Text("No tasks added yet"),
+                      Text('Press the "+" button to add your first task '),
+                    ],
+                  )),
                 ],
               );
             }

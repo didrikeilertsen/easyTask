@@ -65,16 +65,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     if (_isFormValid()) {
       try {
-        User? user = await widget.auth.createUserWithEmailAndPassword(_email, _password);
+        User? user =
+            await widget.auth.createUserWithEmailAndPassword(_email, _password);
         if (_username.isNotEmpty) {
-          if (user != null){
-           await user.updateDisplayName(_username);
+          if (user != null) {
+            await user.updateDisplayName(_username);
           }
         }
       } catch (e) {
         print(e.toString());
-      } if (mounted){
-        Navigator.of(context).pop();
+      } finally {
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
       }
     }
   }

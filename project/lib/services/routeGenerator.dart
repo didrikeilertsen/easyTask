@@ -13,6 +13,7 @@ import 'package:project/services/auth.dart';
 
 import '../models/project.dart';
 import '../screens/profile/edit_profile_screen.dart';
+import '../screens/profile/profile_screen.dart';
 
 ///This class separates the routing logic for the entire application
 class RouteGenerator {

@@ -71,7 +71,13 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
               Project(id: id, title: _title, description: _description);
           await database.setProject(project);
           if (mounted) {
-            ProjectScreen.show(context, project);
+
+            if(widget.project == null) {
+              Navigator.of(context).pushNamed("/landingScreen");
+
+            } else {
+              ProjectScreen.show(context, project);
+            }
           }
         }
       } on FirebaseException catch (e) {

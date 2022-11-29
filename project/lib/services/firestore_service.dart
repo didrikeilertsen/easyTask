@@ -29,16 +29,6 @@ class FirestoreService {
     await reference.delete();
   }
 
-//TODO: delete this?
-  ///Helper method which updates data in the database
-  Future<void> updateData(
-      {required String path, required Map<String, dynamic> data}) async {
-    final reference = FirebaseFirestore.instance.doc(path);
-    print(' adding: $path: $data');
-
-    await reference.update(data);
-  }
-
   ///Helper method which creates a generic stream from a given database-path
   Stream<List<T>> collectionStream<T>({
     required String path,
@@ -52,20 +42,4 @@ class FirestoreService {
     )
         .toList()));
   }
-
-  //
-  // ///Helper method which creates a generic stream from a given database-path
-  // Stream<List<T>> collectionStream<T>({
-  //   required String path,
-  //   required T Function(Map<String, dynamic> data) builder,
-  // }) {
-  //   final reference = FirebaseFirestore.instance.collection(path);
-  //   final snapshots = reference.snapshots();
-  //
-  //   return snapshots.map((snapshot) => (snapshot.docs
-  //       .map(
-  //         (snapshot) => builder(snapshot.data()),
-  //       )
-  //       .toList()));
-  // }
 }
