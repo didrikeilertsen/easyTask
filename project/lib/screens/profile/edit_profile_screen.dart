@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,8 +44,6 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     setState(() {
       if (pickedFile != null) {
         _photo = File(pickedFile.path);
-      } else {
-        print('No image selected.');
       }
     });
   }
@@ -63,7 +62,9 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       final url = await reference.getDownloadURL();
       await auth.currentUser!.updatePhotoURL(url);
     } catch (e) {
-      print('error occured');
+      if (kDebugMode) {
+        print('error occured');
+      }
     }
   }
 
@@ -219,7 +220,9 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           uploadFile();
         }
       } on FirebaseException catch (e) {
-        print(e.toString());
+        if (kDebugMode) {
+          print(e.toString());
+        }
         const AlertDialog(
           title: Text('Operation failed'),
         );

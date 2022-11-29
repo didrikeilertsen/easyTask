@@ -11,6 +11,8 @@ import 'project_screen.dart';
 class ProjectOverviewScreen extends ConsumerWidget {
   const ProjectOverviewScreen({super.key});
 
+  //TODO: placeholder text is not shown when no projects are found
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -18,25 +20,7 @@ class ProjectOverviewScreen extends ConsumerWidget {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-          Text(
-            "easy",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w100,
-              color: Colors.black,
-            ),
-          ),
-          Text(
-            "Task",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
-            ),
-          )
-        ]),
+        title: _buildLogo(),
         actions: [
           AppBarButton(
             handler: () {
@@ -53,7 +37,7 @@ class ProjectOverviewScreen extends ConsumerWidget {
           const Padding(
             padding: EdgeInsets.only(
               top: 30.0,
-              bottom: 20,
+              bottom: 30.0,
             ),
             child: Text(
                 style: TextStyle(
@@ -68,38 +52,67 @@ class ProjectOverviewScreen extends ConsumerWidget {
     );
   }
 
+  Widget _buildLogo() {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+      Text(
+        "easy",
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w100,
+          color: Colors.black,
+        ),
+      ),
+      Text(
+        "Task",
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          color: Colors.black,
+        ),
+      )
+    ]);
+  }
+
   Widget _buildContent(BuildContext context, WidgetRef ref) {
     final database = ref.watch(databaseProvider);
     final auth = ref.watch(authenticationProvider);
     return StreamBuilder<List<Project>>(
         stream: database.projectsStream(auth.currentUser!.uid),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final projects = snapshot.data;
-            final children = projects!
-                .map((project) => ProjectCard(
-                      project: project,
-                      onTap: () => ProjectScreen.show(context, project),
-                    ))
-                .toList();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+                child: SizedBox(
+                    height: 40, width: 40, child: CircularProgressIndicator()));
+          }
 
-            return Expanded(
-              child: SingleChildScrollView(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: children,
+          if (snapshot.hasData) {
+            if (snapshot.data!.isNotEmpty) {
+              final projects = snapshot.data;
+              final children = projects!
+                  .map((project) => ProjectCard(
+                        project: project,
+                        onTap: () => ProjectScreen.show(context, project),
+                      ))
+                  .toList();
+
+              return Expanded(
+                child: SingleChildScrollView(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: children,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
+              );
+            }
           }
 
-          if (!snapshot.hasData) {
+          if (!snapshot.hasData || snapshot.data?.length == 0) {
             return Column(
               children: const [
                 SizedBox(height: 230),

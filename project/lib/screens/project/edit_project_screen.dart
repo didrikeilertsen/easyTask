@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -81,7 +82,9 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
           }
         }
       } on FirebaseException catch (e) {
-        const AlertDialog(
+        if (kDebugMode) {
+          print(e.toString());
+        }const AlertDialog(
           title: Text('Operation failed'),
         );
       }
@@ -138,7 +141,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
               Icons.delete,
               color: Colors.red,
             ),
-            Text(style: TextStyle(color: Colors.red), "delete task"),
+            Text(style: TextStyle(color: Colors.red), "delete project"),
           ],
         ));
   }

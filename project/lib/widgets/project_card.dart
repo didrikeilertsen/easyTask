@@ -13,7 +13,13 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(bottom: 15),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: Themes.primaryColor,
+        ),
+            borderRadius: BorderRadius.circular(20.0),
+      ),
+      margin: const EdgeInsets.only(bottom: 15),
       child: ListTile(
         title: Text(project.title),
         subtitle: Text(project.description),

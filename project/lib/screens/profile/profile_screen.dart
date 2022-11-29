@@ -12,9 +12,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.read(authenticationProvider);
     final firebase = ref.read(fireBaseAuthProvider);
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -73,7 +71,7 @@ class ProfileScreen extends ConsumerWidget {
                     }
                     return const Center(child: SizedBox(height: 10));
                   }),
-              const SizedBox(height: 70),
+              const SizedBox(height: 30),
               StreamBuilder<User?>(
                   stream: firebase.userChanges(),
                   builder: (context, snapshot) {
@@ -83,6 +81,7 @@ class ProfileScreen extends ConsumerWidget {
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
+                              color: Themes.primaryColor,
                             ));
                       }
                     }
@@ -92,18 +91,17 @@ class ProfileScreen extends ConsumerWidget {
                     if (snapshot.hasError) {
                       return const Center(child: Text("Some error occurred"));
                     }
-                    return const Center(child: SizedBox(height: 10));
+                    return const Center(child: SizedBox(height: 0));
                   }),
-              const SizedBox(height: 20),
+              const SizedBox(height: 60),
               OutlinedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/editProfile');
                 },
                 style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.grey[200],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  side:
-                      const BorderSide(width: 1.5, color: Themes.primaryColor),
                 ),
                 child: const Text(
                   'edit profile',
@@ -113,10 +111,9 @@ class ProfileScreen extends ConsumerWidget {
               OutlinedButton(
                 onPressed: () => _signOut(ref),
                 style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.grey[200],
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  side:
-                      const BorderSide(width: 1.5, color: Themes.primaryColor),
                 ),
                 child: const Text(
                   'log out',
