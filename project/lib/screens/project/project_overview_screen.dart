@@ -5,7 +5,6 @@ import 'package:project/models/project.dart';
 import 'package:project/services/providers.dart';
 import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/project_card.dart';
-import 'package:project/widgets/search_bar.dart';
 import 'project_screen.dart';
 
 /// Screen/Scaffold for the overview of projects the user have access to.
@@ -19,7 +18,25 @@ class ProjectOverviewScreen extends ConsumerWidget {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: const Text("projects", textAlign: TextAlign.center),
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+          Text(
+            "easy",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w100,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            "Task",
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          )
+        ]),
         actions: [
           AppBarButton(
             handler: () {
@@ -30,17 +47,24 @@ class ProjectOverviewScreen extends ConsumerWidget {
           )
         ],
       ),
-      body: Column(children: [
-        SearchBar(
-          placeholderText: "search for project",
-          searchFunction: () {},
-          textEditingController: TextEditingController(),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 10),
-        ),
-        _buildContent(context, ref),
-      ]),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(children: [
+          const Padding(
+            padding: EdgeInsets.only(
+              top: 30.0,
+              bottom: 20,
+            ),
+            child: Text(
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                "projects:"),
+          ),
+          _buildContent(context, ref),
+        ]),
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:project/styles/themes.dart';
 import '../models/task.dart';
 
 /// Represents a project as a card used on project screen.
@@ -12,13 +13,16 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.only(bottom: 15),
       child: ListTile(
         title: Text(task.title),
         subtitle: Text(task.description),
         onTap: onTap,
         trailing: const Icon(
             PhosphorIcons.pencilSimpleLight,
-            size: 18,
+
+          color: Themes.primaryColor,
+          size: 18,
           ),
         ),
     );

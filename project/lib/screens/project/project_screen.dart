@@ -7,7 +7,6 @@ import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/task_card.dart';
 import '../../models/task.dart';
 import '../../services/providers.dart';
-import '../../widgets/search_bar.dart';
 import 'edit_project_screen.dart';
 
 /// Screen/Scaffold for creating a new projext.
@@ -42,19 +41,26 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
         },
         child: const Icon(Icons.add),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SearchBar(
-            placeholderText: "search for task",
-            searchFunction: () {},
-            textEditingController: TextEditingController(),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 10),
-          ),
-          _buildContent(context),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 30.0,
+                bottom: 20,
+              ),
+              child: Text(
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  "tasks:"),
+            ),
+            _buildContent(context),
+          ],
+        ),
       ),
     );
   }
@@ -70,7 +76,8 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
               return Column(
                 children: [
                   const SizedBox(height: 230),
-                  Center(child: Column(
+                  Center(
+                      child: Column(
                     children: const [
                       Text("No tasks added yet"),
                       Text('Press the "+" button to add your first task '),
@@ -93,12 +100,11 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: children,
-                    )
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: children,
+                      )),
                 ),
               ),
             );
