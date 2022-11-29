@@ -57,8 +57,8 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     final auth = ref.watch(authenticationProvider);
     if (_validateAndSaveForm()) {
       try {
-        //TODO add nullcheck
-        final projects = await database.projectsStream(auth.currentUser!.uid).first;
+        final projects =
+            await database.projectsStream(auth.currentUser!.uid).first;
         final allTitles = projects.map((project) => project.title).toList();
         if (widget.project != null) {
           allTitles.remove(widget.project!.title);
@@ -71,12 +71,10 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
           final id = widget.project?.id ?? database.documentIdFromCurrentDate();
           final project =
               Project(id: id, title: _title, description: _description);
-          await database.setProject(project);
+          await database.setProject(auth.currentUser!.uid, project);
           if (mounted) {
-
-            if(widget.project == null) {
+            if (widget.project == null) {
               Navigator.of(context).pushNamed("/landingScreen");
-
             } else {
               ProjectScreen.show(context, project);
             }
@@ -147,9 +145,10 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
 
   Future<void> _delete() async {
     final database = ref.watch(databaseProvider);
+    final auth = ref.watch(authenticationProvider);
 
     if (widget.project != null) {
-      database.removeProject(widget.project!);
+      database.removeProject(auth.currentUser!.uid, widget.project!);
     }
 
     Navigator.of(context).pushNamed("/landingScreen");

@@ -60,10 +60,11 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
 
   Future<void> _submit() async {
     final database = ref.watch(databaseProvider);
+    final auth = ref.watch(authenticationProvider);
     if (_validateAndSaveForm()) {
       try {
         final task = Task(title: _title, description: _description);
-        database.addTask(widget.project, task);
+        database.addTask(auth.currentUser!.uid, widget.project, task);
         Navigator.of(context).pop();
       } on FirebaseException catch (e) {
         const AlertDialog(
@@ -133,8 +134,8 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-             Icon(
-                Icons.delete,
+            Icon(
+              Icons.delete,
               color: Colors.red,
             ),
             Text(style: TextStyle(color: Colors.red), "delete task"),
@@ -144,8 +145,9 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
 
   Future<void> _delete() async {
     final database = ref.watch(databaseProvider);
+    final auth = ref.watch(authenticationProvider);
     if (widget.task != null) {
-      database.removeTask(widget.project, widget.task!);
+      database.removeTask(auth.currentUser!.uid, widget.project, widget.task!);
     }
     Navigator.of(context).pop();
   }

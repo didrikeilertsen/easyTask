@@ -61,8 +61,9 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
 
   Widget _buildContent(BuildContext context) {
     final database = ref.watch(databaseProvider);
+    final auth = ref.watch(authenticationProvider);
     return StreamBuilder<List<Task>>(
-        stream: database.tasksStream(widget.project),
+        stream: database.tasksStream(auth.currentUser!.uid, widget.project),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
