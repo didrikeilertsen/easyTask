@@ -51,7 +51,7 @@ class SignInScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _buildLogo(),
+                    _buildLogo(ref),
                     const SizedBox(height: 80.0),
                     _buildGoogleSignInButtons(ref),
                     const SizedBox(height: 15.0),
@@ -110,7 +110,8 @@ class SignInScreen extends ConsumerWidget {
     return SignInButton(
       icon: PhosphorIcons.facebookLogo,
       text: "Continue with Facebook",
-      onPressed: () => _signInWithFacebook(ref),
+      onPressed: () {},
+      // onPressed: () => _signInWithFacebook(ref),
     );
   }
 
@@ -130,7 +131,13 @@ class SignInScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildLogo() {
+  Widget _buildLogo(WidgetRef ref) {
+
+    final auth = ref.read(authenticationProvider);
+
+    print( "current user:");
+    print( auth.currentUser);
+
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
       Text(
         "easy",
@@ -171,7 +178,6 @@ class SignInScreen extends ConsumerWidget {
 
   Future<void> _signInWithGoogle(WidgetRef ref) async {
     final auth = ref.read(authenticationProvider);
-
     try {
       final user = await auth.signInWithGoogle();
       print(" user info = ${user?.uid}");
@@ -180,14 +186,14 @@ class SignInScreen extends ConsumerWidget {
     }
   }
 
-  Future<void> _signInWithFacebook(WidgetRef ref) async {
-    final auth = ref.read(authenticationProvider);
-    print("h");
-    try {
-      final user = await auth.signInWithFacebook();
-      print(" user info = ${user?.uid}");
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  // Future<void> _signInWithFacebook(WidgetRef ref) async {
+  //   final auth = ref.read(authenticationProvider);
+  //   print("h");
+  //   try {
+  //     final user = await auth.signInWithFacebook();
+  //     print(" user info = ${user?.uid}");
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 }

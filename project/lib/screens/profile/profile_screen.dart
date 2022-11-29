@@ -41,13 +41,10 @@ class ProfileScreen extends ConsumerWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data!.displayName != null) {
-                        return Text(
-                            snapshot.data!.displayName!,
-                        style: TextStyle(
-                          fontSize: 17,
-                        )
-
-                        );
+                        return Text(snapshot.data!.displayName!,
+                            style: const TextStyle(
+                              fontSize: 17,
+                            ));
                       }
                     }
                     if (!snapshot.hasData) {
@@ -56,22 +53,22 @@ class ProfileScreen extends ConsumerWidget {
                     if (snapshot.hasError) {
                       return const Center(child: Text("Some error occurred"));
                     }
-                    return const Center(
-                        child: SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: CircularProgressIndicator(),
-                    ));
+                    return const Center(child: SizedBox(height: 10));
                   }),
-              const SizedBox(height: 15,),
-              const Text("email:",
-                  style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: 17)
+              const SizedBox(
+                height: 15,
               ),
-              Text(auth.currentUser!.email.toString(), style: TextStyle(
-                fontSize: 17,
-              ),),
-              const SizedBox(height: 15,),
+              const Text("email:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+              Text(
+                auth.currentUser!.email.toString(),
+                style: const TextStyle(
+                  fontSize: 17,
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               Text("phone number:${auth.currentUser!.phoneNumber}"),
 
               const SizedBox(height: 30),

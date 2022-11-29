@@ -49,8 +49,9 @@ class ProjectOverviewScreen extends ConsumerWidget {
 
   Widget _buildContent(BuildContext context, WidgetRef ref) {
     final database = ref.watch(databaseProvider);
+    final auth = ref.watch(authenticationProvider);
     return StreamBuilder<List<Project>>(
-        stream: database.projectsStream(),
+        stream: database.projectsStream(auth.currentUser!.uid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final projects = snapshot.data;

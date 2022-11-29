@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 ///A Firebase authentication service
@@ -8,7 +7,10 @@ class Auth {
 
   final _googleSignIn = GoogleSignIn();
 
-  final _fb = FacebookLogin();
+  // final _fb = FacebookLogin();
+
+  //TODO: denne er vel ikke nødvendig mtp at jeg hører på streamen i landing_screen
+  Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
   User? get currentUser => _firebaseAuth.currentUser;
 
@@ -41,47 +43,51 @@ class Auth {
       );
     }
   }
-
-  Future<User?> signInWithFacebook() async {
-    print("hallo");
-
-    // final response = await _fb.logIn();
-
-    final response = await _fb.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email
-    ]);
-
-    print("hei");
-
-    print(response.toString());
-    print(response.accessToken);
-    print(response.status);
-    print(response.error);
-
-    switch (response.status) {
-      case FacebookLoginStatus.success:
-        final accessToken = response.accessToken;
-        final userCredential = await _firebaseAuth.signInWithCredential(
-          FacebookAuthProvider.credential(accessToken!.token),
-        );
-        return userCredential.user;
-      case FacebookLoginStatus.cancel:
-        throw FirebaseAuthException(
-            code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
-      case FacebookLoginStatus.error:
-        throw FirebaseAuthException(
-          code: 'ERROR_FACEBOOK_LOGIN_FAILED',
-          message: response.error!.developerMessage,
-        );
-      default:
-        throw UnimplementedError();
-    }
-  }
+  //
+  // Future<User?> signInWithFacebook() async {
+  //   print("hallo");
+  //
+  //   // final response = await _fb.logIn();
+  //
+  //   final response = await _fb.logIn(permissions: [
+  //     FacebookPermission.publicProfile,
+  //     FacebookPermission.email
+  //   ]);
+  //
+  //   print("hei");
+  //
+  //   print(response.toString());
+  //   print(response.accessToken);
+  //   print(response.status);
+  //   print(response.error);
+  //
+  //   switch (response.status) {
+  //     case FacebookLoginStatus.success:
+  //       final accessToken = response.accessToken;
+  //       final userCredential = await _firebaseAuth.signInWithCredential(
+  //         FacebookAuthProvider.credential(accessToken!.token),
+  //       );
+  //       return userCredential.user;
+  //     case FacebookLoginStatus.cancel:
+  //       throw FirebaseAuthException(
+  //           code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
+  //     case FacebookLoginStatus.error:
+  //       throw FirebaseAuthException(
+  //         code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+  //         message: response.error!.developerMessage,
+  //       );
+  //     default:
+  //       throw UnimplementedError();
+  //   }
+  // }
 
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
-    await _firebaseAuth.signOut();
+    if (_googleSignIn.currentUser != null) {
+      await _googleSignIn.signOut();
+    }
+    if (_firebaseAuth.currentUser != null) {
+      await _firebaseAuth.signOut();
+    }
   }
 
   Future<User?> signInWithEmailAndPassword(

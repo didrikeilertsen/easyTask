@@ -11,6 +11,8 @@ class Database {
 
   String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
+
+  //TODO: set uid as parameter to theese functions
   ///Adds or updates a given project
   Future<void> setProject(Project project) => _service.setData(
         //path we will write to in the firebase
@@ -41,7 +43,7 @@ class Database {
 
 
   ///Creates a stream that listens to projects
-  Stream<List<Project>> projectsStream() => _service.collectionStream(
+  Stream<List<Project>> projectsStream(uid) => _service.collectionStream(
         path: APIPath.projects(uid),
         builder: (data, documentId) => Project.fromMap(data, documentId),
       );

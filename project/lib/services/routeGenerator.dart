@@ -24,7 +24,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/landingScreen':
-        return MaterialPageRoute(builder: (_) => LandingScreen(auth: Auth()));
+        return MaterialPageRoute(builder: (_) => const LandingScreen());
 
       case '/registrationScreen':
         return MaterialPageRoute(

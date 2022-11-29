@@ -54,9 +54,11 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
 
   Future<void> _submit() async {
     final database = ref.watch(databaseProvider);
+    final auth = ref.watch(authenticationProvider);
     if (_validateAndSaveForm()) {
       try {
-        final projects = await database.projectsStream().first;
+        //TODO add nullcheck
+        final projects = await database.projectsStream(auth.currentUser!.uid).first;
         final allTitles = projects.map((project) => project.title).toList();
         if (widget.project != null) {
           allTitles.remove(widget.project!.title);
