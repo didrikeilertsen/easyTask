@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
-import 'package:project/widgets/appbar_button.dart';
+import 'package:project/styles/themes.dart';
 import '../../models/task.dart';
 import '../../services/providers.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -31,23 +30,19 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 
 class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
-
   String _name = "";
   String _email = "";
+  File? _photo;
+  final ImagePicker _picker = ImagePicker();
 
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
-  File? _photo;
-  final ImagePicker _picker = ImagePicker();
-
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
     setState(() {
       if (pickedFile != null) {
         _photo = File(pickedFile.path);
-        uploadFile();
       } else {
         print('No image selected.');
       }
@@ -56,23 +51,16 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   Future uploadFile() async {
     if (_photo == null) return;
-
-
     final auth = ref.watch(authenticationProvider);
     final uid = auth.currentUser!.uid;
-
-
     final fileName = path.basename(_photo!.path);
     final destination = 'files/$uid/$fileName';
-
     try {
       final reference = firebase_storage.FirebaseStorage.instance
           .ref(destination)
           .child('file/');
       await reference.putFile(_photo!);
-
       final url = await reference.getDownloadURL();
-
       await auth.currentUser!.updatePhotoURL(url);
     } catch (e) {
       print('error occured');
@@ -81,77 +69,92 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   Future imgFromCamera() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-
     setState(() {
       if (pickedFile != null) {
         _photo = File(pickedFile.path);
-        uploadFile();
-      } else {
-        print('No image selected.');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final auth = ref.watch(authenticationProvider);
-
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 32,
-          ),
-          Column(
-            children: [
+        appBar: AppBar(
+          title: const Text('edit profile'),
+          centerTitle: true,
+        ),
+        backgroundColor: Colors.grey[200],
+        body: _buildContent());
+  }
 
-              _photo != null
-                  ? Image.file(
-                      _photo!,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.fitHeight,
-                    )
-                  : const Text("no image"),
+  Widget _buildContent() {
+    return Column(
+      children: <Widget>[
+        const SizedBox(
+          height: 32,
+        ),
+        Column(
+          children: [
+            _buildImagePicker(),
+            _buildForm(),
+            ElevatedButton(
+              onPressed: _submit,
+              child: const Text(
+                'Save',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
 
-
-
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    _showPicker(context);
-                  },
-                  child: CircleAvatar(
-                    radius: 55,
-                    backgroundColor: const Color(0xffFDCF09),
-                    child: _photo != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.file(
-                              _photo!,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(50)),
-                            width: 100,
-                            height: 100,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey[800],
-                            ),
-                          ),
+  Widget _buildImagePicker() {
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          _showPicker(context);
+        },
+        child: CircleAvatar(
+          radius: 100,
+          backgroundColor: Themes.primaryColor,
+          child: _photo != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.file(
+                    _photo!,
+                    width: 190,
+                    height: 190,
+                    fit: BoxFit.fitHeight,
+                  ),
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(100)),
+                  width: 190,
+                  height: 190,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Text(
+                            style: TextStyle(color: Colors.black87),
+                            "click to"),
+                        Text(
+                            style: TextStyle(color: Colors.black87),
+                            "add image"),
+                        Icon(
+                          Icons.camera_alt,
+                          color: Colors.black87,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
@@ -184,36 +187,6 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         });
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   final auth = ref.read(authenticationProvider);
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       elevation: 2.0,
-  //       title: const Text('edit profile'),
-  //       centerTitle: false,
-  //       titleSpacing: -4,
-  //       leading: AppBarButton(
-  //         handler: () => Navigator.of(context).pop(),
-  //         tooltip: "Add new task",
-  //         icon: PhosphorIcons.caretLeftLight,
-  //         color: Colors.black,
-  //       ),
-  //       actions: <Widget>[
-  //         ElevatedButton(
-  //           onPressed: _submit,
-  //           child: const Text(
-  //             'Save',
-  //             style: TextStyle(fontSize: 18, color: Colors.white),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //     body: _buildContents(),
-  //     backgroundColor: Colors.grey[200],
-  //   );
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -222,7 +195,6 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     if (auth.currentUser != null) {
       _name = auth.currentUser!.displayName!;
       _email = auth.currentUser!.email!;
-      //_deadline = widget.task!.deadline;
     }
   }
 
@@ -244,8 +216,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         if (auth.currentUser != null) {
           await auth.currentUser!.updateDisplayName(_name);
           await auth.currentUser!.updateEmail(_email);
-
-          // await auth.currentUser!.updatePhotoURL(_email);
+          uploadFile();
         }
       } on FirebaseException catch (e) {
         print(e.toString());
@@ -260,7 +231,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     }
   }
 
-  Widget _buildContents() {
+  Widget _buildForm() {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -269,22 +240,17 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: _buildForm(),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: _buildFormChildren(),
+                  ),
+                ),
               ),
             ),
           ),
-          // _buildDeleteButton()
         ],
-      ),
-    );
-  }
-
-  Widget _buildForm() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _buildFormChildren(),
       ),
     );
   }
@@ -292,46 +258,17 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
-        decoration: const InputDecoration(labelText: 'username'),
+        decoration: const InputDecoration(labelText: 'new username'),
         initialValue: _name,
         validator: (value) => value!.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value!,
       ),
       const SizedBox(height: 10),
       TextFormField(
-        decoration: const InputDecoration(labelText: 'email'),
+        decoration: const InputDecoration(labelText: 'new email'),
         initialValue: _email,
         onSaved: (value) => _email = value!,
       ),
-      // TextFormField(
-      //   decoration: const InputDecoration(labelText: 'deadline'),
-      //   initialValue: _email,
-      //   //onSaved: (value) => _deadline = value!,
-      // ),
     ];
-  }
-
-  //
-  // Widget _buildDeleteButton() {
-  //   return TextButton(
-  //       onPressed: _delete,
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: const [
-  //           // Icon(
-  //           //   Icons.delete,
-  //           //   color: Colors.red,
-  //           // ),
-  //           Text( "update"),
-  //         ],
-  //       ));
-  // }
-
-  Future<void> _delete() async {
-    // final database = ref.watch(databaseProvider);
-    // if (widget.task != null) {
-    //   database.removeTask(widget.project, widget.task!);
-    // }
-    // Navigator.of(context).pop();
   }
 }

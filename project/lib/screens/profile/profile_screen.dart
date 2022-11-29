@@ -25,23 +25,54 @@ class ProfileScreen extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 100),
-              //TODO: stretch-goal
-
-              auth.currentUser?.photoURL != null
-                  ? CircleAvatar(
-                      backgroundColor: Themes.primaryColor,
-                      radius: 115,
-                      child: CircleAvatar(
-                        radius: 110,
-                        backgroundImage:
-                            NetworkImage(auth.currentUser!.photoURL!),
-                      ),
-                    )
-                  : Image.asset(
-                      "assets/images/empty_profile_pic_large.png",
-                      height: 200,
-                      color: Themes.primaryColor,
-                    ),
+              StreamBuilder<User?>(
+                  stream: firebase.userChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                      if (snapshot.data!.photoURL != null) {
+                        return CircleAvatar(
+                          backgroundColor: Themes.primaryColor,
+                          radius: 115,
+                          child: CircleAvatar(
+                              radius: 110,
+                              child: ClipOval(
+                                child: Image.network(
+                                  snapshot.data!.photoURL!,
+                                  width: 230,
+                                  height: 230,
+                                  fit: BoxFit.cover,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return const Center(
+                                        child: CircularProgressIndicator(
+                                          color: Colors.black87,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              )),
+                        );
+                      }
+                    }
+                    if (snapshot.data?.photoURL == null) {
+                      return Image.asset(
+                        "assets/images/empty_profile_pic_large.png",
+                        height: 230,
+                        color: Themes.primaryColor,
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return const Center(child: Text("Some error occurred"));
+                    }
+                    return const Center(child: SizedBox(height: 10));
+                  }),
               const SizedBox(height: 70),
               StreamBuilder<User?>(
                   stream: firebase.userChanges(),
@@ -71,49 +102,27 @@ class ProfileScreen extends ConsumerWidget {
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  side: BorderSide(width: 1.5, color: Themes.primaryColor),
+                  side:
+                      const BorderSide(width: 1.5, color: Themes.primaryColor),
                 ),
                 child: const Text(
                   'edit profile',
                   style: TextStyle(color: Colors.black87),
                 ),
               ),
-
               OutlinedButton(
                 onPressed: () => _signOut(ref),
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  side: BorderSide(width: 1.5, color: Themes.primaryColor),
+                  side:
+                      const BorderSide(width: 1.5, color: Themes.primaryColor),
                 ),
                 child: const Text(
                   'log out',
                   style: TextStyle(color: Colors.black87),
                 ),
               ),
-
-              // OutlinedButton(
-              //   onPressed: () {},
-              //
-              //   style: ButtonStyle(
-              //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(30.0))
-              //     ),
-              //   ),
-              //
-              //   child: const Text("edit profile"),
-              // ),
-              // OutlinedButton(
-              //   onPressed: () {},
-              //
-              //   style: ButtonStyle(
-              //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(30.0))
-              //     ),
-              //   ),
-              //
-              //   child: const Text("log out"),
-              // ),
             ],
           ),
         ));
