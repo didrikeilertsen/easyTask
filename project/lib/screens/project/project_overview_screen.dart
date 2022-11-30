@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/services/providers.dart';
-import 'package:project/widgets/appbar_button.dart';
 import 'package:project/widgets/project_card.dart';
 import 'project_screen.dart';
 
@@ -11,65 +10,95 @@ import 'project_screen.dart';
 class ProjectOverviewScreen extends ConsumerWidget {
   const ProjectOverviewScreen({super.key});
 
-  //TODO: placeholder text is not shown when no projects are found
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: _buildLogo(),
-        actions: [
-          AppBarButton(
-            handler: () {
-              Navigator.of(context).pushNamed('/editProject');
-            },
-            tooltip: "Add new project",
-            icon: PhosphorIcons.plus,
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(children: [
-          const Padding(
-            padding: EdgeInsets.only(
-              top: 30.0,
-              bottom: 30.0,
-            ),
-            child: Text(
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-                "projects:"),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   automaticallyImplyLeading: false,
+      //   title: _buildLogo(),
+      //   actions: [
+      //     AppBarButton(
+      //       handler: () {
+      //         Navigator.of(context).pushNamed('/editProject');
+      //       },
+      //       tooltip: "Add new project",
+      //       icon: PhosphorIcons.plus,
+      //     )
+      //   ],
+      // ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/blurryBackground.png"),
+            fit: BoxFit.fill,
           ),
-          _buildContent(context, ref),
-        ]),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 60),
+            ),
+            _buildCustomAppBar(context),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 30.0,
+                bottom: 10.0,
+              ),
+              child: Text(
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  "active projects:"),
+            ),
+            _buildContent(context, ref),
+          ]),
+        ),
       ),
     );
   }
 
-  Widget _buildLogo() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-      Text(
-        "easy",
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.w100,
-          color: Colors.black,
-        ),
+  Widget _buildCustomAppBar(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Opacity(
+          opacity: 0,
+          child: TextButton(onPressed: () {}, child: const Icon(PhosphorIcons.plus))),
+      Row(
+        children: const [
+          Text(
+            "easy",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w100,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            "Task",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
-      Text(
-        "Task",
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.w700,
-          color: Colors.black,
+      OutlinedButton(
+        onPressed: () {Navigator.of(context).pushNamed('/editProject');},
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.grey[200],
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)),
         ),
-      )
+        child: const Icon(
+            PhosphorIcons.plus,
+            color: Colors.black87,
+            size: 30,
+          ),
+      ),
     ]);
   }
 
