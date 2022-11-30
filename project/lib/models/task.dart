@@ -7,12 +7,8 @@ class Task {
   // The description of the task.
   String description;
 
-  // Whether or not the task has been completed.
-  bool done;
-
-  //TODO: stretch-goal  -- if not: remove deadline from ui
   // The (optional) deadline of the task.
-  //String? deadline;
+  String? deadline;
 
 
   String id;
@@ -20,30 +16,26 @@ class Task {
   Task({
     this.title = "task title",
     this.description = "task description",
-    this.done = false,
-    // this.deadline
+    this.deadline,
     this.id = "id",
   });
 
   /// Returns the data content of the task as a dynamic list.
   List<dynamic> values() {
     return [
-      title, description, done,
-      // deadline
+      title, description, deadline
     ];
   }
 
   factory Task.fromMap(Map<String, dynamic> data, String documentId) {
     final String title = data["title"];
     final String description = data["description"];
-    //final String deadline = (data["deadline"]);
-    final bool done = (data["done"]);
+    final String deadline = (data["deadline"]);
     return Task(
       id: documentId,
       title: title,
       description: description,
-      // deadline: deadline,
-      done: done,
+      deadline: deadline,
     );
   }
 
@@ -52,8 +44,7 @@ class Task {
     return {
       "title": title,
       "description": description,
-      "done": done,
-      // "deadline": deadline,
+      "deadline": deadline,
     };
   }
 }

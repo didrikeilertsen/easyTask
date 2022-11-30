@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:project/models/project.dart';
 import 'package:project/widgets/appbar_button.dart';
@@ -29,13 +31,17 @@ class EditTaskScreen extends ConsumerStatefulWidget {
   EditTaskScreenState createState() => EditTaskScreenState();
 }
 
+//TODO  bug når man oppdaterer task: en ny task lages hvis navn oppdateres. må implementere samme logikk som jeg gjorde i project
+
 class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
   final _formKey = GlobalKey<FormState>();
-
   String _title = "";
   String _description = "";
+  String? _deadline = "";
+  DateTime? date = DateTime.now();
 
-  // String _deadline= "";
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -43,7 +49,9 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     if (widget.task != null) {
       _title = widget.task!.title;
       _description = widget.task!.description;
-      //_deadline = widget.task!.deadline;
+      if (widget.task!.deadline != null) {
+        _deadline = widget.task!.deadline;
+      }
     }
   }
 
@@ -63,7 +71,8 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     final auth = ref.watch(authenticationProvider);
     if (_validateAndSaveForm()) {
       try {
-        final task = Task(title: _title, description: _description);
+        final task =
+            Task(title: _title, description: _description, deadline: _deadline);
         database.addTask(auth.currentUser!.uid, widget.project, task);
         Navigator.of(context).pop();
       } on FirebaseException catch (e) {
@@ -117,11 +126,35 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
         initialValue: _description,
         onSaved: (value) => _description = value!,
       ),
-      TextFormField(
-        decoration: const InputDecoration(labelText: 'deadline'),
-        initialValue: _description,
-        //onSaved: (value) => _deadline = value!,
-      ),
+      const SizedBox(height: 10),
+      TextField(
+          controller: dateController,
+          onChanged: (value) => _deadline = value,
+          decoration: const InputDecoration(
+            suffixIcon: Icon(Icons.calendar_today),
+            labelText: "deadline",
+          ),
+          readOnly: true,
+          onTap: () async {
+            DateTime? pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2021),
+                lastDate: DateTime(2101));
+
+            if (pickedDate != null) {
+              String dateString = DateFormat('dd/MM/yyyy').format(pickedDate);
+
+              setState(() {
+                dateController.text = dateString;
+                _deadline = dateString;
+              });
+            } else {
+              if (kDebugMode) {
+                print("Date is not selected");
+              }
+            }
+          }),
     ];
   }
 
