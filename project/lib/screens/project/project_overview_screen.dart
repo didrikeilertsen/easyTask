@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project/models/project.dart';
@@ -16,50 +15,8 @@ class ProjectOverviewScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   automaticallyImplyLeading: false,
-      //   title: _buildLogo(),
-      //   actions: [
-      //     AppBarButton(
-      //       handler: () {
-      //         Navigator.of(context).pushNamed('/editProject');
-      //       },
-      //       tooltip: "Add new project",
-      //       icon: PhosphorIcons.plus,
-      //     )
-      //   ],
-      // ),
-      //
-      //
       body: _buildContent(context, ref),
     );
-  }
-
-  Widget _buildLogo() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Row(
-        children: const [
-          Text(
-            "easy",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w100,
-              color: Colors.black,
-            ),
-          ),
-          Text(
-            "Task",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
-    ]);
   }
 
   Widget _buildCustomAppBar(BuildContext context) {

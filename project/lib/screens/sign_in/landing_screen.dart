@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project/screens/homeScreen.dart';
 import 'package:project/screens/sign_in/sign_in_screen.dart';
-import '../../services/auth.dart';
 import '../../services/providers.dart';
 
 class LandingScreen extends ConsumerStatefulWidget {
@@ -18,10 +17,7 @@ class LandingScreenState extends ConsumerState<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final auth = ref.watch(authenticationProvider);
-
-    // auth.authStateChange;
 
     return Scaffold(
       body: StreamBuilder<User?>(

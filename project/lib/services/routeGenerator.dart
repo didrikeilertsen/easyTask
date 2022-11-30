@@ -15,8 +15,6 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
-    //USE THIS TO NAVIGATE IN AN ON-PRESSED ======= Navigator.of(context).pushNamed('/pageName', arguments: agrumentsToPass );
-
     switch (settings.name) {
       case '/landingScreen':
         return MaterialPageRoute(builder: (_) => const LandingScreen());

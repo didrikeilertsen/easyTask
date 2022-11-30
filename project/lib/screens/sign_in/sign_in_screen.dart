@@ -135,12 +135,6 @@ class SignInScreen extends ConsumerWidget {
   }
 
   Widget _buildLogo(WidgetRef ref) {
-
-    final auth = ref.read(authenticationProvider);
-
-    print( "current user:");
-    print( auth.currentUser);
-
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
       Text(
         "easy",

@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
         children: screens,
       ),
 
-
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Themes.primaryColor,
         iconSize: 30,

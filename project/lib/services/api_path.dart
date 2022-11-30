@@ -1,5 +1,4 @@
 
-
 class APIPath {
 
   static String project(String uid, String projectId) => '/users/$uid/projects/$projectId';
@@ -7,5 +6,4 @@ class APIPath {
 
   static String projects(String uid) => '/users/$uid/projects';
   static String tasks(String uid, String projectId) => '/users/$uid/projects/$projectId/tasks';
-
 }

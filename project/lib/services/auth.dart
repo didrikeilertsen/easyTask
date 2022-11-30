@@ -106,6 +106,4 @@ class Auth {
 //       throw UnimplementedError();
 //   }
 // }
-
-
 }

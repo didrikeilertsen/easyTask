@@ -48,7 +48,7 @@ class ProjectScreenState extends ConsumerState<ProjectScreen> {
     );
   }
 
-  _buildContent() {
+  Widget _buildContent() {
     return Padding(
       padding: const EdgeInsets.only(
         top: 30.0,
