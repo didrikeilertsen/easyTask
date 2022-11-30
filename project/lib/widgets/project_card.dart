@@ -14,15 +14,14 @@ class ProjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        side: BorderSide(
+        side: const BorderSide(
           color: Themes.primaryColor,
         ),
             borderRadius: BorderRadius.circular(20.0),
       ),
       margin: const EdgeInsets.only(bottom: 15),
       child: ListTile(
-        title: Text(project.title),
-        subtitle: Text(project.description),
+        title: _buildContent(),
         onTap: onTap,
         trailing: const Icon(
           Icons.chevron_right,
@@ -31,4 +30,32 @@ class ProjectCard extends StatelessWidget {
       ),
     );
   }
+
+
+  _buildContent() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(project.title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold
+            ),
+          ),
+
+          project.description != "" ?
+          Text(project.description,
+            style: TextStyle(
+                color: Colors.grey[500]
+            ),)
+              :
+          const SizedBox(height: 0, width: 0,),
+
+        ],
+      ),
+    );
+  }
+
+
 }

@@ -31,8 +31,6 @@ class EditTaskScreen extends ConsumerStatefulWidget {
   EditTaskScreenState createState() => EditTaskScreenState();
 }
 
-//TODO  bug når man oppdaterer task: en ny task lages hvis navn oppdateres. må implementere samme logikk som jeg gjorde i project
-
 class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
   final _formKey = GlobalKey<FormState>();
   String _title = "";
@@ -71,16 +69,64 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     final auth = ref.watch(authenticationProvider);
     if (_validateAndSaveForm()) {
       try {
-        final task =
-            Task(title: _title, description: _description, deadline: _deadline);
-        database.addTask(auth.currentUser!.uid, widget.project, task);
-        Navigator.of(context).pop();
+        final tasks = await database
+            .tasksStream(auth.currentUser!.uid, widget.project)
+            .first;
+        final allTitles = tasks.map((task) => task.title).toList();
+        if (widget.task != null) {
+          allTitles.remove(widget.task!.title);
+        }
+        if (allTitles.contains(_title)) {
+          if (mounted) {
+            _onAlertButtonPressed(context);
+          }
+        } else {
+          final id = widget.task?.id ?? database.documentIdFromCurrentDate();
+
+          final task = Task(
+              id: id,
+              title: _title,
+              description: _description,
+              deadline: _deadline);
+
+          await database.setTask(auth.currentUser!.uid, widget.project, task);
+          if (mounted) {
+            if (widget.task == null) {
+              Navigator.of(context).pop();
+              // Navigator.of(context).pushNamed("/landingScreen");
+
+            } else {
+              Navigator.of(context).pop();
+            }
+          }
+        }
       } on FirebaseException catch (e) {
+        if (kDebugMode) {
+          print(e.toString());
+        }
         const AlertDialog(
           title: Text('Operation failed'),
         );
       }
     }
+  }
+
+  _onAlertButtonPressed(context) {
+    AlertDialog alert = AlertDialog(
+      title: const Text('Name already used'),
+      content: const Text('Please choose a different task name'),
+      actions: [
+        ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Ok"))
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   Widget _buildContents() {

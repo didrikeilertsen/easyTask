@@ -66,7 +66,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
         }
         if (allTitles.contains(_title)) {
           if (mounted) {
-            _onAlertButtonPressed1(context);
+            _onAlertButtonPressed(context);
           }
         } else {
           final id = widget.project?.id ?? database.documentIdFromCurrentDate();
@@ -91,7 +91,7 @@ class EditProjectScreenState extends ConsumerState<EditProjectScreen> {
     }
   }
 
-  _onAlertButtonPressed1(context) {
+  _onAlertButtonPressed(context) {
     AlertDialog alert = AlertDialog(
       title: const Text('Name already used'),
       content: const Text('Please choose a different project name'),

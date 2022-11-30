@@ -42,43 +42,6 @@ class Auth {
       );
     }
   }
-  //
-  // Future<User?> signInWithFacebook() async {
-  //   print("hallo");
-  //
-  //   // final response = await _fb.logIn();
-  //
-  //   final response = await _fb.logIn(permissions: [
-  //     FacebookPermission.publicProfile,
-  //     FacebookPermission.email
-  //   ]);
-  //
-  //   print("hei");
-  //
-  //   print(response.toString());
-  //   print(response.accessToken);
-  //   print(response.status);
-  //   print(response.error);
-  //
-  //   switch (response.status) {
-  //     case FacebookLoginStatus.success:
-  //       final accessToken = response.accessToken;
-  //       final userCredential = await _firebaseAuth.signInWithCredential(
-  //         FacebookAuthProvider.credential(accessToken!.token),
-  //       );
-  //       return userCredential.user;
-  //     case FacebookLoginStatus.cancel:
-  //       throw FirebaseAuthException(
-  //           code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
-  //     case FacebookLoginStatus.error:
-  //       throw FirebaseAuthException(
-  //         code: 'ERROR_FACEBOOK_LOGIN_FAILED',
-  //         message: response.error!.developerMessage,
-  //       );
-  //     default:
-  //       throw UnimplementedError();
-  //   }
-  // }
 
   Future<void> signOut() async {
     if (_googleSignIn.currentUser != null) {
@@ -105,4 +68,44 @@ class Auth {
     print(" user info = ${userCredentials.user?.uid}");
     return userCredentials.user;
   }
+
+//
+// Future<User?> signInWithFacebook() async {
+//   print("hallo");
+//
+//   // final response = await _fb.logIn();
+//
+//   final response = await _fb.logIn(permissions: [
+//     FacebookPermission.publicProfile,
+//     FacebookPermission.email
+//   ]);
+//
+//   print("hei");
+//
+//   print(response.toString());
+//   print(response.accessToken);
+//   print(response.status);
+//   print(response.error);
+//
+//   switch (response.status) {
+//     case FacebookLoginStatus.success:
+//       final accessToken = response.accessToken;
+//       final userCredential = await _firebaseAuth.signInWithCredential(
+//         FacebookAuthProvider.credential(accessToken!.token),
+//       );
+//       return userCredential.user;
+//     case FacebookLoginStatus.cancel:
+//       throw FirebaseAuthException(
+//           code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
+//     case FacebookLoginStatus.error:
+//       throw FirebaseAuthException(
+//         code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+//         message: response.error!.developerMessage,
+//       );
+//     default:
+//       throw UnimplementedError();
+//   }
+// }
+
+
 }

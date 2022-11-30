@@ -1,10 +1,13 @@
 /// The data content of a project in the application.
 class Project {
+
   // The name of the project.
   String title;
+
   // The description of the project.
   String description;
 
+// The unique identifier for the project
   String id;
 
   Project({

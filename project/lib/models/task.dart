@@ -10,7 +10,7 @@ class Task {
   // The (optional) deadline of the task.
   String? deadline;
 
-
+  // The unique identifier for the task
   String id;
 
   Task({
@@ -19,13 +19,6 @@ class Task {
     this.deadline,
     this.id = "id",
   });
-
-  /// Returns the data content of the task as a dynamic list.
-  List<dynamic> values() {
-    return [
-      title, description, deadline
-    ];
-  }
 
   factory Task.fromMap(Map<String, dynamic> data, String documentId) {
     final String title = data["title"];
