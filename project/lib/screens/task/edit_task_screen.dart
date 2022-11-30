@@ -180,7 +180,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
             suffixIcon: Icon(Icons.calendar_today),
             labelText: "deadline",
           ),
-          readOnly: true,
+          // readOnly: true,
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
                 context: context,

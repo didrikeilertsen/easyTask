@@ -19,47 +19,47 @@ class TaskCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
       ),
       margin: const EdgeInsets.only(bottom: 15),
-      child: ListTile(
-        title: _buildContent(),
-        onTap: onTap,
-        trailing: const Icon(
-          Icons.chevron_right,
-          color: Themes.primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: ListTile(
+          title: _buildContent(),
+          onTap: onTap,
+          trailing: const Icon(
+            Icons.chevron_right,
+            color: Themes.primaryColor,
+          ),
         ),
       ),
     );
   }
 
   _buildContent() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            task.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          task.description != ""
-              ? Text(
-                  task.description,
-                  style: TextStyle(color: Colors.grey[500]),
-                )
-              : const SizedBox(
-                  height: 0,
-                  width: 0,
-                ),
-          task.deadline != ""
-              ? Text(
-                  "deadline: ${task.deadline!}",
-                  style: TextStyle(color: Colors.grey[500]),
-                )
-              : const SizedBox(
-                  height: 0,
-                  width: 0,
-                ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          task.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        task.description != ""
+            ? Text(
+                task.description,
+                style: TextStyle(color: Colors.grey[500]),
+              )
+            : const SizedBox(
+                height: 0,
+                width: 0,
+              ),
+        task.deadline != ""
+            ? Text(
+                "deadline: ${task.deadline!}",
+                style: TextStyle(color: Colors.grey[500]),
+              )
+            : const SizedBox(
+                height: 0,
+                width: 0,
+              ),
+      ],
     );
   }
 }

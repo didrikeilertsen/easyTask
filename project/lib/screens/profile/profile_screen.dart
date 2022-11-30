@@ -14,6 +14,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final firebase = ref.read(fireBaseAuthProvider);
     return Scaffold(
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
@@ -99,7 +100,7 @@ class ProfileScreen extends ConsumerWidget {
                   Navigator.of(context).pushNamed('/editProfile');
                 },
                 style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.grey[200],
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),
@@ -111,7 +112,7 @@ class ProfileScreen extends ConsumerWidget {
               OutlinedButton(
                 onPressed: () => _signOut(ref),
                 style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.grey[200],
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),

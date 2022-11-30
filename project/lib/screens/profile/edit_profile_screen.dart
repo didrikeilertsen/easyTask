@@ -80,6 +80,7 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('edit profile'),
           centerTitle: true,
@@ -143,10 +144,10 @@ class EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       children: const [
                         Text(
                             style: TextStyle(color: Colors.black87),
-                            "click to"),
+                            "click to add"),
                         Text(
                             style: TextStyle(color: Colors.black87),
-                            "add image"),
+                            "new image"),
                         Icon(
                           Icons.camera_alt,
                           color: Colors.black87,

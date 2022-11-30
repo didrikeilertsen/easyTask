@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -47,38 +46,42 @@ class SignInScreen extends ConsumerWidget {
                         offset: const Offset(0, 3),
                       )
                     ]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    _buildLogo(ref),
-                    const SizedBox(height: 80.0),
-                    _buildGoogleSignInButtons(ref),
-                    const SizedBox(height: 15.0),
-                    _buildFacebookSignInButtons(ref),
-                    const SizedBox(height: 15.0),
-                    _buildAppleSignInButtons(context, ref),
-                    const SizedBox(height: 25.0),
-                    const Text(
-                      "or",
-                      style: TextStyle(fontSize: 12),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 15.0),
-                    SignUpButton(
-                      text: "Sign up with email",
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/registrationScreen');
-                      },
-                    ),
-                    const SizedBox(height: 25.0),
-                    _buildLoginButton(context),
-                  ],
-                ),
+                child: _buildButtons(context, ref),
               ),
             ),
           ),
         )
+      ],
+    );
+  }
+
+  Widget _buildButtons(BuildContext context, WidgetRef ref){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        _buildLogo(ref),
+        const SizedBox(height: 80.0),
+        _buildGoogleSignInButtons(ref),
+        const SizedBox(height: 15.0),
+        _buildFacebookSignInButtons(ref),
+        const SizedBox(height: 15.0),
+        _buildAppleSignInButtons(context, ref),
+        const SizedBox(height: 25.0),
+        const Text(
+          "or",
+          style: TextStyle(fontSize: 12),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 15.0),
+        SignUpButton(
+          text: "Sign up with email",
+          onPressed: () {
+            Navigator.of(context).pushNamed('/registrationScreen');
+          },
+        ),
+        const SizedBox(height: 25.0),
+        _buildLoginButton(context),
       ],
     );
   }
