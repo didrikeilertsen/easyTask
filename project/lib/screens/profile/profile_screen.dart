@@ -39,85 +39,84 @@ class ProfileScreen extends ConsumerWidget {
 
   Widget _buildUserInfo(WidgetRef ref) {
     final firebase = ref.read(fireBaseAuthProvider);
-    return Column(
-      children: [
-        StreamBuilder<User?>(
-            stream: firebase.userChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                }
-                if (snapshot.data!.photoURL != null) {
-                  return CircleAvatar(
-                    backgroundColor: Themes.primaryColor,
-                    radius: 115,
-                    child: CircleAvatar(
-                        radius: 110,
-                        child: ClipOval(
-                          child: Image.network(
-                            snapshot.data!.photoURL!,
-                            width: 230,
-                            height: 230,
-                            fit: BoxFit.cover,
-                            loadingBuilder:
-                                (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              } else {
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.black87,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        )),
-                  );
-                }
-              }
-              if (snapshot.data?.photoURL == null) {
-                return Image.asset(
-                  "assets/images/empty_profile_pic_large.png",
-                  height: 230,
-                  color: Themes.primaryColor,
-                );
-              }
-              if (snapshot.hasError) {
-                return const Center(child: Text("Some error occurred"));
-              }
-              return const Center(child: SizedBox(height: 10));
-            }),
-        const SizedBox(height: 30),
-        StreamBuilder<User?>(
-            stream: firebase.userChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data!.displayName != null) {
-                  return Text(snapshot.data!.displayName!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Themes.primaryColor,
-                      ));
-                }
-              }
-              if (!snapshot.hasData) {
-                return const Text("");
-              }
-              if (snapshot.hasError) {
-                return const Center(child: Text("Some error occurred"));
-              }
-              return const Center(child: SizedBox(height: 0));
-            })
-      ],
+    return StreamBuilder<User?>(
+      stream: firebase.userChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          User? user = snapshot.data;
+          return Column(
+            children: [
+              _buildAvatar(user),
+              const SizedBox(height: 30),
+              _buildUserInfoText(user)
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text("Can't load profile data from the database"),
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 
-  Widget _buildButtons(BuildContext context, WidgetRef ref){
+  Widget _buildUserInfoText(User? user) {
+    if (user == null || user.displayName == null) return const Text("");
+    return Text(
+      user.displayName!,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 30,
+        color: Themes.primaryColor,
+      ),
+    );
+  }
+
+  Widget _buildAvatar(User? user) {
+    if (user == null || user.photoURL == null) return _buildDefaultAvatar();
+
+    return CircleAvatar(
+      backgroundColor: Themes.primaryColor,
+      radius: 115,
+      child: CircleAvatar(
+          radius: 110,
+          child: ClipOval(
+            child: Image.network(
+              user.photoURL!,
+              width: 230,
+              height: 230,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.black87,
+                    ),
+                  );
+                }
+              },
+            ),
+          )),
+    );
+  }
+
+  Widget _buildDefaultAvatar() {
+    return Image.asset(
+      "assets/images/empty_profile_pic_large.png",
+      height: 230,
+      color: Themes.primaryColor,
+    );
+  }
+
+  Widget _buildButtons(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
+        // Girts comment: here I would also probably refactor it to _buildEditProfileButton() and _buildSignOutButton()
+        // Currently there is a lot of code where the developer needs to read all the code to really understand that there are two buttons
         OutlinedButton(
           onPressed: () {
             Navigator.of(context).pushNamed('/editProfile');
