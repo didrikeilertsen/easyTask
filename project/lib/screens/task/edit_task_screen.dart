@@ -64,6 +64,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     return false;
   }
 
+  // Girts comment: for a better code style this function could be refactored into several smaller pieces
   Future<void> _submit() async {
     final database = ref.watch(databaseProvider);
     final auth = ref.watch(authenticationProvider);
@@ -78,6 +79,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
         }
         if (allTitles.contains(_title)) {
           if (mounted) {
+            // Girts comment: weird name for a function. Unclear why you have this call here. It is more like "showDuplicateNameError"
             _onAlertButtonPressed(context);
           }
         } else {
@@ -180,6 +182,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
             suffixIcon: Icon(Icons.calendar_today),
             labelText: "deadline",
           ),
+          // Girts comment: remove commented-out code
           // readOnly: true,
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -236,6 +239,7 @@ class EditTaskScreenState extends ConsumerState<EditTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
+        // Girts comment: deadline is not displayed correctly when editing a task
         title: Text(widget.task == null ? 'new task' : 'edit task'),
         centerTitle: false,
         titleSpacing: -4,

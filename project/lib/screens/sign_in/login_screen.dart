@@ -63,6 +63,7 @@ class _LogInScreenState extends State<LogInScreen> {
         await widget.auth.signInWithEmailAndPassword(_email, _password);
       }
       catch (e) {
+        // Girts comment: in general - here and other places you are missing error handling. When an error is received from Firebase, nothing happens. No error message is shown.
         print(e.toString());
       }
       finally {

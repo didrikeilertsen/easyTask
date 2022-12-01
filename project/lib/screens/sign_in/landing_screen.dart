@@ -5,6 +5,7 @@ import 'package:project/screens/homeScreen.dart';
 import 'package:project/screens/sign_in/sign_in_screen.dart';
 import '../../services/providers.dart';
 
+// Girts comment: each class should have a documentation (comment) saying what the responsibility of that class is
 class LandingScreen extends ConsumerStatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
 

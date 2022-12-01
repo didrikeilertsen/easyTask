@@ -73,6 +73,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           }
         }
       } catch (e) {
+        // Girts comment: nothing happens when you enter an invalid email or password - you are thrown back to login screen. There should be an error message instead
         print(e.toString());
       } finally {
         if (mounted) {
